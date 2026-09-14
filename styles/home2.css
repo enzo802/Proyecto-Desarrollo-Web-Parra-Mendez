@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 15px;
+    background-color: #000044;
+    font-family: Arial, sans-serif;
+}
+
+/* TÍTULOS */
+
+h1,
+h2 {
+    color: white;
+    font-size: 16px;
+    margin: 0 0 10px 0;
+}
+
+/* CONTENEDOR DESTACADA */
+
+.destacada {
+    background-color: #555577;
+    border-radius: 15px;
+    height: 200px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+/* IMAGEN / POSTER */
+
+.poster {
+    width: 60px;
+    height: 65px;
+    border: 1px solid #d8ae45;
+    border-radius: 8px;
+}
+
+/* INFORMACIÓN */
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.destacada .categoria {
+    color: #e0b33d;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.destacada .titulo {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.rating {
+    color: #e0b33d;
+    font-size: 14px;
+    margin-top: 25px;
+}
+
+/* BOTÓN */
+
+.boton {
+    background-color: #6677ee;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* POPULARES */
+
+.populares {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+/* CONTENEDOR DE PELÍCULAS */
+
+.peliculas {
+    display: flex;
+    gap: 28px;
+}
+
+/* TARJETAS */
+
+.pelicula {
+    width: 95px;
+}
+
+.pelicula .poster {
+    width: 95px;
+    height: 140px;
+    background-color: #555577;
+    border: none;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* NOMBRE */
+
+.pelicula .nombre {
+    color: white;
+    font-size: 8px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+/* PUNTUACIÓN */
+
+.pelicula .rating {
+    color: #e0b33d;
+    font-size: 8px;
+    margin-top: 4px;
+}
