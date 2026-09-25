@@ -1,146 +1,346 @@
 :root {
-    --deep-twilight: #000045;
-    --electric-sapphire: #6670FB;
-    --sunflower-gold: #F4B942;
-    --dusty-grape: #4B4E78;
-    --input-bg: #363a66;
-    --khaki-beige: #B8A88A;
-    --ghost-white: #F7F7FC;
-  }
+  --deep-twilight: #000045;
+  --electric-sapphire: #6670FB;
+  --sapphire-strong: #5560EE;
+  --sunflower-gold: #F4B942;
+  --dusty-grape: #4B4E78;
+  --input-bg: rgba(0, 0, 69, 0.38);
+  --khaki-beige: #B8A88A;
+  --ghost-white: #F7F7FC;
+  --pupil: #2A2E4B;
+  --eye-cream: #F7E7C5;
 
-  * { box-sizing: border-box; }
+  --font-display: 'Lilita One', 'Arial Rounded MT Bold', 'Arial Black', Arial, sans-serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
 
-  h2 {
-    text-align: center;
-  }
+* { box-sizing: border-box; }
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background-color: var(--deep-twilight);
-    color: var(--ghost-white);
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    position: relative;
-  }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--deep-twilight);
+  color: var(--ghost-white);
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+}
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url('../images/foto_upscaled.jfif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.67;
-    z-index: -1;
-  }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('../images/foto_upscaled.jfif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.67;
+  z-index: -1;
+}
+
+/* ---------- Layout: tarjeta a la izquierda, mascota a la derecha ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+}
+
+/* ---------- Tarjeta de login ---------- */
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  justify-self: start;
+  padding: 40px 36px 32px;
+  border-radius: 28px;
+  background: rgba(75, 78, 120, 0.58);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(247, 247, 252, 0.16);
+  box-shadow:
+    0 30px 80px -24px rgba(0, 0, 40, 0.8),
+    inset 0 1px 0 rgba(247, 247, 252, 0.1);
+}
+
+.login-card h1 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.subtitle {
+  margin: 0 0 28px;
+  color: var(--khaki-beige);
+  font-size: 0.95rem;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--khaki-beige);
+}
+
+.field input {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  background: var(--input-bg);
+  border: 1px solid rgba(247, 247, 252, 0.1);
+  border-radius: 14px;
+  color: var(--ghost-white);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.field input::placeholder { color: #9a9dc4; }
+
+.field input:hover { border-color: rgba(247, 247, 252, 0.22); }
+
+.field input:focus {
+  border-color: var(--electric-sapphire);
+  box-shadow: 0 0 0 4px rgba(102, 112, 251, 0.28);
+}
+
+.field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--ghost-white);
+  caret-color: var(--ghost-white);
+  box-shadow: 0 0 0 100px #23275a inset;
+}
+
+/* Campo de contrasena con boton de mostrar/ocultar */
+
+.password-wrap { position: relative; }
+
+.password-wrap input { padding-right: 52px; }
+
+.toggle-pass {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  color: var(--khaki-beige);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.toggle-pass:hover {
+  color: var(--ghost-white);
+  background: rgba(247, 247, 252, 0.08);
+}
+
+.toggle-pass .icon-hide { display: none; }
+.toggle-pass[aria-pressed="true"] .icon-show { display: none; }
+.toggle-pass[aria-pressed="true"] .icon-hide { display: block; }
+
+/* Recordarme / olvidaste */
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--khaki-beige);
+  cursor: pointer;
+}
+
+.remember input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--electric-sapphire);
+}
+
+.link {
+  color: var(--sunflower-gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link:hover { text-decoration: underline; }
+
+/* Boton principal */
+
+.btn-primary {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: var(--sapphire-strong);
+  color: var(--ghost-white);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(102, 112, 251, 0.9);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -10px rgba(102, 112, 251, 1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px -8px rgba(102, 112, 251, 0.9);
+}
+
+.signup {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--khaki-beige);
+}
+
+/* Foco visible para teclado */
+
+.btn-primary:focus-visible,
+.toggle-pass:focus-visible,
+.link:focus-visible,
+.remember input:focus-visible {
+  outline: 2px solid var(--sunflower-gold);
+  outline-offset: 3px;
+}
+
+/* ---------- Mascota (derecha) ---------- */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  /* Halo oscuro detras de la mascota para separarla del fondo de posters */
+  background: radial-gradient(ellipse closest-side at 50% 50%, rgba(0, 0, 69, 0.75), rgba(0, 0, 69, 0));
+}
+
+.mascot {
+  position: relative;
+  /* Grande, pero sin pasarse del alto de la ventana (734 / 836 = 0.878) */
+  width: clamp(230px, min(34vw, calc((100vh - 150px) * 0.878)), 520px);
+  aspect-ratio: 734 / 836;
+}
+
+.mascot-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 26px 34px rgba(0, 0, 69, 0.55));
+}
+
+/* Los ojos: cada uno es una elipse que recorta a su pupila */
+.eye {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.eye-left  { left: 28.87%; top: 56.58%; width: 10.94%; height: 15.80%; }
+.eye-right { left: 51.30%; top: 56.99%; width: 11.91%; height: 15.95%; }
+
+.pupil {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 66%;
+  height: 66%;
+  border-radius: 50%;
+  background: var(--pupil);
+  transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px)));
+  transition: transform 90ms ease-out;
+}
+
+/* Brillo de la pupila, como en el dibujo original */
+.pupil::after {
+  content: "";
+  position: absolute;
+  left: 20%;
+  top: 14%;
+  width: 34%;
+  height: 24%;
+  border-radius: 50%;
+  background: var(--eye-cream);
+  transform: rotate(-20deg);
+}
+
+.wordmark {
+  position: relative;
+  margin: -0.3em 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--sunflower-gold);
+  transform: rotate(-3deg);
+  text-shadow: 0 3px 0 #2b2266, 0 12px 26px rgba(0, 0, 69, 0.6);
+}
+
+/* ---------- Pantallas chicas: mascota arriba, tarjeta abajo ---------- */
+
+@media (max-width: 900px) {
+  body { align-items: flex-start; }
 
   .wrap {
-    width: 100%;
-    max-width: 380px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
 
-  .logo-container {
-    text-align: center;
-    margin-bottom: 6px;
-  }
+  .stage { order: -1; }
 
-  .logo {
-    max-width: 120px;
-    height: auto;
-    display: inline-block;
-  }
+  .mascot { width: clamp(150px, 42vw, 240px); }
+
+  .wordmark { font-size: clamp(1.6rem, 7vw, 2.4rem); }
 
   .login-card {
-    background: var(--dusty-grape);
-    border-radius: 20px;
-    padding: 24px 24px;
+    justify-self: center;
+    padding: 32px 24px 28px;
   }
+}
 
-  .login-card h2 {
-    margin: 0 0 6px;
-    font-size: 1.3rem;
-    font-weight: 800;
+@media (prefers-reduced-motion: reduce) {
+  .pupil,
+  .btn-primary,
+  .field input,
+  .toggle-pass {
+    transition: none;
   }
-
-  .subtitle {
-    text-align: center;
-    margin: 0 0 24px;
-    color: var(--khaki-beige);
-    font-size: 0.85rem;
-  }
-
-  .field {
-    margin-bottom: 16px;
-  }
-  .field label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--khaki-beige);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-  .field input {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid transparent;
-    border-radius: 10px;
-    padding: 12px 14px;
-    color: var(--ghost-white);
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.15s ease;
-  }
-  .field input::placeholder { color: #9a9dc4; }
-  .field input:focus { border-color: var(--electric-sapphire); }
-
-  .row-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-  }
-  .remember {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.8rem;
-    color: var(--khaki-beige);
-  }
-  .remember input { accent-color: var(--electric-sapphire); }
-
-  .link {
-    color: var(--sunflower-gold);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-decoration: none;
-  }
-  .link:hover { text-decoration: underline; }
-
-  .btn-primary {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 10px;
-    background: var(--electric-sapphire);
-    color: var(--ghost-white);
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-  .btn-primary:hover { opacity: 0.9; }
-
-  .signup {
-    text-align: center;
-    margin-top: 22px;
-    font-size: 0.83rem;
-    color: var(--khaki-beige);
-  }
+}
