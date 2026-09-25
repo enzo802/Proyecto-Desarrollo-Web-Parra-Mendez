@@ -11,10 +11,25 @@
 
 <body>
 
+  <!-- Capa invisible de 5x5 zonas: detecta dónde está el cursor -->
+  <div class="zonas" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
   <div class="wrap">
 
     <div class="logo-container">
-      <img src="images/logo_con_nombre.jfif" alt="Logo" class="logo">
+      <!-- Wrapper que ajusta su tamaño al del logo, para ubicar los ojos en % -->
+      <div class="logo-ojos">
+        <img src="images/logo_con_nombre.jfif" alt="Logo" class="logo">
+
+        <span class="ojo ojo--izq" aria-hidden="true"><span class="pupila"></span></span>
+        <span class="ojo ojo--der" aria-hidden="true"><span class="pupila"></span></span>
+      </div>
     </div>
 
     <div class="login-card">

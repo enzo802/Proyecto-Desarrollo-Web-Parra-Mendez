@@ -4,127 +4,148 @@
 
 body {
     margin: 0;
-    padding: 15px;
-    background-color: #000044;
+    padding: 20px 5%; /* Un poco más de margen lateral para que respire */
+    background-color: #121212; /* Fondo oscuro estilo IMDb/Letterboxd en vez del azul */
     font-family: Arial, sans-serif;
 }
 
 /* TÍTULOS */
-
 h1,
-h2 {
+h2,
+h3 {
     color: white;
-    font-size: 16px;
     margin: 0 0 10px 0;
 }
 
-/* CONTENEDOR DESTACADA */
+.header {
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
 
-.destacada {
-    background-color: #555577;
+.header h1 {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+/* CONTENEDOR DESTACADA */
+.hero-destacada {
+    background-color: #1f1f1f; /* Un gris oscuro para resaltar sobre el fondo */
     border-radius: 15px;
-    height: 200px;
+    height: auto; /* Mejor auto para que se adapte al contenido */
     padding: 30px;
     display: flex;
     align-items: center;
     gap: 40px;
+    margin-bottom: 40px;
+    border-left: 5px solid #f5c518; /* Detalle amarillo IMDb */
 }
 
-/* IMAGEN / POSTER */
-
-.poster {
-    width: 60px;
-    height: 65px;
-    border: 1px solid #d8ae45;
+/* IMAGEN / POSTER DESTACADO */
+.hero-poster {
+    width: 80px;
+    height: 90px;
+    border: 1px solid #f5c518;
     border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px; /* Para el ícono 🎞️ */
 }
 
-/* INFORMACIÓN */
-
-.info {
+/* INFORMACIÓN DESTACADA */
+.hero-info {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex-grow: 1; /* Para que empuje el botón a la derecha */
 }
 
-.destacada .categoria {
-    color: #e0b33d;
+.etiqueta {
+    color: #f5c518;
     font-size: 14px;
     font-weight: bold;
+    letter-spacing: 1px;
 }
 
-.destacada .titulo {
-    color: white;
-    font-size: 14px;
+.hero-info h2 {
+    font-size: 28px;
     font-weight: bold;
+    margin: 0;
 }
 
-.rating {
-    color: #e0b33d;
-    font-size: 14px;
-    margin-top: 25px;
+.puntuacion {
+    color: #f5c518;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 /* BOTÓN */
-
-.boton {
-    background-color: #6677ee;
-    color: white;
+.btn-resena {
+    background-color: #f5c518; /* Amarillo IMDb */
+    color: black; /* Letra negra para contrastar */
+    text-decoration: none;
     border: none;
     padding: 12px 25px;
     font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-resena:hover {
+    background-color: #e0b315;
 }
 
 /* POPULARES */
-
-.populares {
-    color: white;
-    font-size: 16px;
+.seccion-populares h2 {
+    font-size: 20px;
     font-weight: bold;
     margin-top: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #f5c518;
+    padding-left: 10px;
 }
 
 /* CONTENEDOR DE PELÍCULAS */
-
-.peliculas {
+.grilla-peliculas {
     display: flex;
+    flex-wrap: wrap; /* Para que bajen de línea si no entran en la pantalla */
     gap: 28px;
 }
 
 /* TARJETAS */
-
-.pelicula {
-    width: 95px;
+.tarjeta-pelicula {
+    width: 120px; /* Un poco más anchas para que se lea mejor el texto */
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
 }
 
-.pelicula .poster {
-    width: 95px;
-    height: 140px;
-    background-color: #555577;
+.poster-placeholder {
+    width: 100%;
+    height: 170px;
+    background-color: #1f1f1f;
     border: none;
     border-radius: 12px;
-
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 40px; /* Ícono más grande */
+    transition: transform 0.2s;
+}
+
+.tarjeta-pelicula:hover .poster-placeholder {
+    transform: translateY(-5px); /* Pequeño saltito al pasar el mouse */
 }
 
 /* NOMBRE */
-
-.pelicula .nombre {
+.tarjeta-pelicula h3 {
     color: white;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: bold;
     margin-top: 10px;
-    display: block;
-}
-
-/* PUNTUACIÓN */
-
-.pelicula .rating {
-    color: #e0b33d;
-    font-size: 8px;
-    margin-top: 4px;
+    margin-bottom: 0;
+    line-height: 1.3;
 }

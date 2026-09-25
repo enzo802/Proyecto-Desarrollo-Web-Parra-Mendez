@@ -1,146 +1,137 @@
+/* =========================================
+   Archivo: styles/home2.css
+   ========================================= */
+
+/* Colores base y reseteo */
 :root {
-    --deep-twilight: #000045;
-    --electric-sapphire: #6670FB;
-    --sunflower-gold: #F4B942;
-    --dusty-grape: #4B4E78;
-    --input-bg: #363a66;
-    --khaki-beige: #B8A88A;
-    --ghost-white: #F7F7FC;
-  }
+    --fondo-principal: #121212; /* Fondo oscuro estilo Letterboxd/IMDb */
+    --fondo-tarjetas: #1f1f1f;
+    --texto-blanco: #ffffff;
+    --color-acento: #f5c518; /* Amarillo característico de IMDb */
+    --color-acento-hover: #e0b315;
+}
 
-  * { box-sizing: border-box; }
-
-  h2 {
-    text-align: center;
-  }
-
-  body {
+* {
     margin: 0;
-    min-height: 100vh;
-    background-color: var(--deep-twilight);
-    color: var(--ghost-white);
-    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--fondo-principal);
+    color: var(--texto-blanco);
+    padding: 30px 5%;
+}
+
+/* HEADER */
+.header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+}
+
+/* HERO: PELÍCULA DESTACADA */
+.hero-destacada {
+    display: flex;
+    align-items: center;
+    background-color: var(--fondo-tarjetas);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    border-left: 5px solid var(--color-acento);
+}
+
+.hero-poster .icono {
+    font-size: 5rem;
+}
+
+.hero-info {
+    flex-grow: 1;
+    padding: 0 40px;
+}
+
+.etiqueta {
+    color: var(--color-acento);
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+}
+
+.hero-info h2 {
+    font-size: 2.8rem;
+    margin: 10px 0;
+}
+
+.puntuacion {
+    color: var(--color-acento);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* BOTÓN RESEÑA */
+.btn-resena {
+    background-color: var(--color-acento);
+    color: #000;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-resena:hover {
+    background-color: var(--color-acento-hover);
+}
+
+/* POPULARES */
+.seccion-populares h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--color-acento);
+    padding-left: 12px;
+}
+
+.grilla-peliculas {
+    display: grid;
+    /* Esto hace que entren 4 columnas, y si la pantalla es pequeña se ajusta automáticamente */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.tarjeta-pelicula {
+    background-color: var(--fondo-tarjetas);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease; /* Efecto al pasar el mouse */
+    cursor: pointer;
+}
+
+.tarjeta-pelicula:hover {
+    transform: translateY(-8px);
+}
+
+.poster-placeholder {
+    background-color: #2a2a2a;
+    height: 300px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
-    position: relative;
-  }
+    margin-bottom: 15px;
+}
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url('../images/foto_upscaled.jfif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.67;
-    z-index: -1;
-  }
+.poster-placeholder .icono {
+    font-size: 3.5rem;
+}
 
-  .wrap {
-    width: 100%;
-    max-width: 380px;
-  }
-
-  .logo-container {
-    text-align: center;
-    margin-bottom: 6px;
-  }
-
-  .logo {
-    max-width: 120px;
-    height: auto;
-    display: inline-block;
-  }
-
-  .login-card {
-    background: var(--dusty-grape);
-    border-radius: 20px;
-    padding: 24px 24px;
-  }
-
-  .login-card h2 {
-    margin: 0 0 6px;
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-
-  .subtitle {
-    text-align: center;
-    margin: 0 0 24px;
-    color: var(--khaki-beige);
-    font-size: 0.85rem;
-  }
-
-  .field {
-    margin-bottom: 16px;
-  }
-  .field label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--khaki-beige);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-  .field input {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid transparent;
-    border-radius: 10px;
-    padding: 12px 14px;
-    color: var(--ghost-white);
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.15s ease;
-  }
-  .field input::placeholder { color: #9a9dc4; }
-  .field input:focus { border-color: var(--electric-sapphire); }
-
-  .row-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-  }
-  .remember {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.8rem;
-    color: var(--khaki-beige);
-  }
-  .remember input { accent-color: var(--electric-sapphire); }
-
-  .link {
-    color: var(--sunflower-gold);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-decoration: none;
-  }
-  .link:hover { text-decoration: underline; }
-
-  .btn-primary {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 10px;
-    background: var(--electric-sapphire);
-    color: var(--ghost-white);
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-  .btn-primary:hover { opacity: 0.9; }
-
-  .signup {
-    text-align: center;
-    margin-top: 22px;
-    font-size: 0.83rem;
-    color: var(--khaki-beige);
-  }
+.tarjeta-pelicula h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
