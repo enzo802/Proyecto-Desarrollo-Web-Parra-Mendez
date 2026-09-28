@@ -47,9 +47,9 @@ body::before {
   width: 100%;
   max-width: 1180px;
   display: grid;
-  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  grid-template-columns: 440px minmax(0, 1fr);
   align-items: center;
-  gap: clamp(24px, 5vw, 80px);
+  gap: clamp(50px, 8vw, 120px);
 }
 
 /* ---------- Tarjeta de login ---------- */
@@ -244,9 +244,15 @@ body::before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  justify-self: end;
+  width: 100%;
   padding: 16px 0;
   /* Halo oscuro detras de la mascota para separarla del fondo de posters */
-  background: radial-gradient(ellipse closest-side at 50% 50%, rgba(0, 0, 69, 0.75), rgba(0, 0, 69, 0));
+  background: radial-gradient(
+    ellipse closest-side at 50% 50%,
+    rgba(0, 0, 69, 0.75),
+    rgba(0, 0, 69, 0)
+  );
 }
 
 .mascot {
@@ -272,6 +278,10 @@ body::before {
   border-radius: 50%;
   overflow: hidden;
   pointer-events: none;
+  transition: transform 0.15s ease-in-out;
+}
+.mascot.eyes-closed .eye {
+  transform: translate(-50%, -50%) scaleY(0);
 }
 
 .eye-left  { left: 28.87%; top: 56.58%; width: 10.94%; height: 15.80%; }
