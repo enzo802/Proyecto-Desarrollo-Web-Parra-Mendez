@@ -5,13 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sesión</title>
-  <link rel="icon" type="image/png" href="images/logo-removebg-preview.png">
+  <!-- Ruta arreglada (../) -->
+  <link rel="icon" type="image/png" href="../images/logo-removebg-preview.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lilita+One&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles/login.css">
+  <!-- Ruta arreglada (../) -->
+  <link rel="stylesheet" href="../styles/login.css">
 </head>
 
 <body>
@@ -27,6 +29,7 @@
 
   <main class="wrap">
 
+    <!-- Tarjeta a la izquierda -->
     <div class="login-card">
       <h2>Iniciar sesión</h2>
       <p class="subtitle">Ingresá tus datos para continuar</p>
@@ -74,10 +77,11 @@
       <p class="signup">¿No tenés cuenta? <a href="#" class="link">Registrate</a></p>
     </div>
 
-    <!-- Mascota (ahora a la derecha) -->
+    <!-- Mascota a la derecha -->
     <div class="stage">
       <div class="mascot" role="img" aria-label="PopScore, la mascota de pochoclos">
-        <img src="images/logo-ojos-vacios.png" alt="" class="mascot-img" draggable="false">
+        <!-- Ruta arreglada (../) -->
+        <img src="../images/logo-ojos-vacios.png" alt="" class="mascot-img" draggable="false">
 
         <div class="eye eye-left" aria-hidden="true">
           <span class="pupil"></span>
@@ -91,59 +95,8 @@
 
   </main>
 
-  <script>
-    // --- 1. LÓGICA DE SEGUIR EL CURSOR (la que ya tenías) ---
-    document.addEventListener('mousemove', (event) => {
-      const eyes = document.querySelectorAll('.eye');
-
-      eyes.forEach(eye => {
-        const pupil = eye.querySelector('.pupil');
-        if (!pupil) return;
-
-        const rect = eye.getBoundingClientRect();
-        const eyeCenterX = rect.left + rect.width / 2;
-        const eyeCenterY = rect.top + rect.height / 2;
-
-        const deltaX = event.clientX - eyeCenterX;
-        const deltaY = event.clientY - eyeCenterY;
-
-        const angle = Math.atan2(deltaY, deltaX);
-        const distance = Math.hypot(deltaX, deltaY);
-
-        const maxRadiusX = rect.width * 0.17; 
-        const maxRadiusY = rect.height * 0.17;
-
-        const distanceScale = Math.min(distance / 400, 1);
-
-        const moveX = Math.cos(angle) * maxRadiusX * distanceScale;
-        const moveY = Math.sin(angle) * maxRadiusY * distanceScale;
-
-        pupil.style.setProperty('--dx', `${moveX}px`);
-        pupil.style.setProperty('--dy', `${moveY}px`);
-      });
-    });
-
-    // --- 2. NUEVA LÓGICA: OCULTAR CONTRASEÑA Y CERRAR OJOS ---
-    const togglePassBtn = document.querySelector('.toggle-pass');
-    const passwordInput = document.getElementById('password');
-    const mascot = document.querySelector('.mascot');
-
-    togglePassBtn.addEventListener('click', () => {
-      const isShowing = togglePassBtn.getAttribute('aria-pressed') === 'true';
-
-      if (isShowing) {
-        // Si se estaba mostrando la contraseña, la ocultamos y cerramos los ojos
-        togglePassBtn.setAttribute('aria-pressed', 'false');
-        passwordInput.type = 'password';
-        mascot.classList.add('eyes-closed'); 
-      } else {
-        // Si estaba oculta, la mostramos y abrimos los ojos
-        togglePassBtn.setAttribute('aria-pressed', 'true');
-        passwordInput.type = 'text';
-        mascot.classList.remove('eyes-closed'); 
-      }
-    });
-  </script>
+  <!-- Ruta arreglada (../) -->
+  <script src="../JavaScript/logo.js"></script>
 </body>
 
 </html>
