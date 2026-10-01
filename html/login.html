@@ -5,13 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sesión</title>
-  <link rel="icon" type="image/png" href="images/logo-removebg-preview.png">
+  <!-- Ruta arreglada (../) -->
+  <link rel="icon" type="image/png" href="../images/logo-removebg-preview.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lilita+One&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles/login.css">
+  <!-- Ruta arreglada (../) -->
+  <link rel="stylesheet" href="../styles/login.css">
 </head>
 
 <body>
@@ -27,6 +29,7 @@
 
   <main class="wrap">
 
+    <!-- Tarjeta a la izquierda -->
     <div class="login-card">
       <h2>Iniciar sesión</h2>
       <p class="subtitle">Ingresá tus datos para continuar</p>
@@ -74,10 +77,11 @@
       <p class="signup">¿No tenés cuenta? <a href="#" class="link">Registrate</a></p>
     </div>
 
-    <!-- Mascota (ahora a la derecha) -->
+    <!-- Mascota a la derecha -->
     <div class="stage">
       <div class="mascot" role="img" aria-label="PopScore, la mascota de pochoclos">
-        <img src="images/logo-ojos-vacios.png" alt="" class="mascot-img" draggable="false">
+        <!-- Ruta arreglada (../) -->
+        <img src="../images/logo-ojos-vacios.png" alt="" class="mascot-img" draggable="false">
 
         <div class="eye eye-left" aria-hidden="true">
           <span class="pupil"></span>
@@ -92,7 +96,7 @@
   </main>
 
   <script>
-    // --- 1. LÓGICA DE SEGUIR EL CURSOR (la que ya tenías) ---
+    // --- 1. LÓGICA DE SEGUIR EL CURSOR ---
     document.addEventListener('mousemove', (event) => {
       const eyes = document.querySelectorAll('.eye');
 
@@ -123,7 +127,7 @@
       });
     });
 
-    // --- 2. NUEVA LÓGICA: OCULTAR CONTRASEÑA Y CERRAR OJOS ---
+    // --- 2. LÓGICA: OCULTAR CONTRASEÑA Y CERRAR OJOS ---
     const togglePassBtn = document.querySelector('.toggle-pass');
     const passwordInput = document.getElementById('password');
     const mascot = document.querySelector('.mascot');
@@ -132,12 +136,10 @@
       const isShowing = togglePassBtn.getAttribute('aria-pressed') === 'true';
 
       if (isShowing) {
-        // Si se estaba mostrando la contraseña, la ocultamos y cerramos los ojos
         togglePassBtn.setAttribute('aria-pressed', 'false');
         passwordInput.type = 'password';
         mascot.classList.add('eyes-closed'); 
       } else {
-        // Si estaba oculta, la mostramos y abrimos los ojos
         togglePassBtn.setAttribute('aria-pressed', 'true');
         passwordInput.type = 'text';
         mascot.classList.remove('eyes-closed'); 
