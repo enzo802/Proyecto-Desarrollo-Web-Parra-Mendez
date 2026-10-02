@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PopScore - Reseñas</title>
+  <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="../styles/reseñas.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="marca">
+        <a href="home.html">
+          <img src="../images/nombre.png" alt="PopScore" class="logo-marca">
+        </a>
+      </div>
+
+      <nav class="nav-principal" aria-label="Navegación principal">
+        <ul>
+          <li><a href="home.html">Inicio</a></li>
+          <li><a href="reseñas.html" class="activo">Reseñas</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-secundaria">
+        <a href="configuracion.html">Configuración</a>
+        <a href="login.html">Iniciar sesión</a>
+      </div>
+    </aside>
+
+    <main class="contenido-principal">
+
+      <div class="header">
+        <h1>RESEÑAS</h1>
+        <div class="buscador-wrapper">
+          <svg class="buscador-icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="search" id="input-busqueda" class="buscador-input" placeholder="Buscar película por título..." autocomplete="off">
+        </div>
+      </div>
+
+      <section class="seccion-populares">
+        <h2>EXPLORAR PELÍCULAS</h2>
+        <div id="grilla-resenas" class="grilla-resenas">
+    
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="modal-resenas" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-contenido">
+      
+      <div class="modal-header">
+        <div class="modal-pelicula-info">
+          <div id="modal-poster" class="modal-poster">🎞️</div>
+          <div class="modal-titulo-wrap">
+            <h2 id="modal-titulo">Título de la película</h2>
+            <p id="modal-metadatos" class="modal-subtitulo-info">Año • Género</p>
+            <p id="modal-puntuacion" class="puntuacion">★ 0.0</p>
+          </div>
+        </div>
+        <button type="button" id="btn-cerrar-modal" class="modal-cerrar" aria-label="Cerrar modal">&times;</button>
+      </div>
+
+      <p id="modal-sinopsis" class="modal-sinopsis">Sinopsis de la película...</p>
+
+      <section class="seccion-comparativa">
+        <h3>COMPARATIVA DE CRÍTICAS Y PLATAFORMAS</h3>
+        <div id="lista-plataformas" class="lista-plataformas">
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../JavaScript/resenas.js"></script>
+</body>
+</html>
