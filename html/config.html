@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Configuración | PopScore</title>
+	<link rel="stylesheet" href="../styles/home.css">
+	<link rel="stylesheet" href="../styles/config.css">
+</head>
+<body>
+	<main class="config-page">
+		<header class="header">
+			<h1>CONFIGURACIÓN</h1>
+		</header>
+		<p class="config-intro">Administrá tu cuenta y personalizá tu experiencia en PopScore.</p>
+
+		<form>
+			<section class="config-group" aria-labelledby="cuenta-titulo">
+				<h2 id="cuenta-titulo">Cuenta</h2>
+				<p class="config-description">Actualizá tus datos personales.</p>
+				<div class="config-fields">
+					<div class="config-field">
+						<label for="usuario">Nombre de usuario</label>
+						<input type="text" id="usuario" name="usuario" placeholder="Tu nombre de usuario" autocomplete="nickname">
+					</div>
+					<div class="config-field">
+						<label for="correo">Correo electrónico</label>
+						<input type="email" id="correo" name="correo" placeholder="tu@email.com" autocomplete="email">
+					</div>
+				</div>
+			</section>
+
+			<section class="config-group" aria-labelledby="privacidad-titulo">
+				<h2 id="privacidad-titulo">Privacidad</h2>
+				<p class="config-description">Controlá cómo se muestra tu actividad.</p>
+				<label class="config-toggle">
+					<span>
+						<strong>Perfil público</strong>
+						<small>Permitir que otras personas vean tus reseñas y puntuaciones.</small>
+					</span>
+					<input type="checkbox" name="perfil-publico" checked>
+				</label>
+				<label class="config-toggle">
+					<span>
+						<strong>Mostrar spoilers</strong>
+						<small>Mostrar directamente el contenido marcado como spoiler.</small>
+					</span>
+					<input type="checkbox" name="spoilers">
+				</label>
+			</section>
+
+			<section class="config-group" aria-labelledby="experiencia-titulo">
+				<h2 id="experiencia-titulo">Experiencia</h2>
+				<p class="config-description">Elegí tus preferencias de uso.</p>
+				<div class="config-fields">
+					<div class="config-field">
+						<label for="idioma">Idioma</label>
+						<select id="idioma" name="idioma">
+							<option value="es" selected>Español</option>
+							<option value="en">English</option>
+						</select>
+					</div>
+				</div>
+				<label class="config-toggle">
+					<span>
+						<strong>Recomendaciones personalizadas</strong>
+						<small>Usar tus puntuaciones para sugerirte películas.</small>
+					</span>
+					<input type="checkbox" name="recomendaciones" checked>
+				</label>
+			</section>
+
+			<section class="config-group" aria-labelledby="notificaciones-titulo">
+				<h2 id="notificaciones-titulo">Notificaciones</h2>
+				<p class="config-description">Seleccioná qué novedades querés recibir.</p>
+				<label class="config-toggle">
+					<span>
+						<strong>Actividad de la comunidad</strong>
+						<small>Respuestas a tus reseñas y menciones.</small>
+					</span>
+					<input type="checkbox" name="notificaciones-comunidad" checked>
+				</label>
+				<label class="config-toggle">
+					<span>
+						<strong>Novedades y recomendaciones</strong>
+						<small>Estrenos y contenido destacado de PopScore.</small>
+					</span>
+					<input type="checkbox" name="notificaciones-novedades">
+				</label>
+			</section>
+
+			<div class="config-actions">
+				<button type="reset" class="config-reset">Restablecer</button>
+				<button type="submit">Guardar cambios</button>
+			</div>
+		</form>
+	</main>
+</body>
+</html>
