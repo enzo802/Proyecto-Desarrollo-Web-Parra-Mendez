@@ -1,35 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reseñas</title>
-  <!-- Cambié login.css por home.css y dejé la ruta correcta -->
-  <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="../styles/home.css" />
 </head>
+
 <body>
-
   <div class="layout">
-
     <aside class="sidebar">
       <div class="marca">
         <a href="home.html">
-    <img src="../images/nombre.png" alt="PopScore" class="logo-marca">
+          <img src="../images/nombre.png" alt="PopScore" class="logo-marca" />
         </a>
-    </div>
+      </div>
 
       <nav class="nav-principal" aria-label="Navegación principal">
         <ul>
-          <li><a href="home.html" class="activo">Inicio</a></li>
-          <li><a href="reseñas.html">Reseñas</a></li>
+          <li><a href="home.html">Inicio</a></li>
+          <li><a href="reseñas.html" class="activo">Reseñas</a></li>
+          <li><a href="rankings.html">Rankings</a></li>
+          <li><a href="foros.html">Foros</a></li>
+          <li><a href="trivia.html">Trivia</a></li>
+          <li><a href="favoritos.html">Favoritos</a></li>
         </ul>
       </nav>
 
       <div class="nav-secundaria">
-        <a href="configuracion.html">Configuración</a>
+        <a href="config.html">Configuración</a>
         <a href="login.html">Iniciar sesión</a>
       </div>
     </aside>
+
+    <main class="contenido-principal">
+      <div class="header">
+        <h1>RESEÑAS</h1>
+      </div>
+
+      <section class="hero-destacada">
+        <div class="hero-poster">🎞️</div>
+
+        <div class="hero-info">
+          <span class="etiqueta">DESTACADA</span>
+          <h2>LA ODISEA</h2>
+          <p class="puntuacion">★ 8.4</p>
+        </div>
+
+        <button type="button" class="btn-resena">RESEÑA</button>
+      </section>
+
+      <section class="seccion-populares">
+        <h2>POPULARES</h2>
+        <div class="contenedor-buscador" style="margin-bottom: 20px">
+          <input type="text" id="input-buscar" placeholder="Buscar película (ej: Matrix)..." style="
+                padding: 8px;
+                width: 250px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+              " />
+          <button id="btn-buscar" style="padding: 8px 15px; cursor: pointer; border-radius: 5px">
+            Buscar
+          </button>
+        </div>
+        <div class="grilla-peliculas">
+          <div class="tarjeta-pelicula">
+            <div class="poster-placeholder">🎞️</div>
+            <h3>OPPENHEIMER</h3>
+            <p class="puntuacion">★ 8.9</p>
+          </div>
+
+          <div class="tarjeta-pelicula">
+            <div class="poster-placeholder">🎞️</div>
+            <h3>SPIDERMAN: BRAND NEW DAY</h3>
+            <p class="puntuacion">★ 8</p>
+          </div>
+
+          <div class="tarjeta-pelicula">
+            <div class="poster-placeholder">🎞️</div>
+            <h3>EL PADRINO</h3>
+            <p class="puntuacion">★ 9.2</p>
+          </div>
+
+          <div class="tarjeta-pelicula">
+            <div class="poster-placeholder">🎞️</div>
+            <h3>UNA MENTE BRILLANTE</h3>
+            <p class="puntuacion">★ 8.2</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="nav-principal" aria-label="Navegación principal">
+    <ul>
+      <li><a href="home.html" class="activo">Inicio</a></li>
+      <li><a href="reseñas.html">Reseñas</a></li>
+    </ul>
+  </nav>
+
+  <div class="nav-secundaria">
+    <a href="configuracion.html">Configuración</a>
+    <a href="login.html">Iniciar sesión</a>
+    <!-- Modal oculto para el tráiler -->
+    <div id="modal-trailer"
+      style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center;">
+      <div style="position: relative; width: 80%; max-width: 800px;">
+        <button onclick="cerrarModal()"
+          style="position: absolute; top: -35px; right: 0; background: #e50914; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; font-weight: bold;">Cerrar
+          X</button>
+
+        <!-- Contenedor responsivo para el video -->
+        <div id="video-container"
+          style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 8px;">
+          <!-- JavaScript inyectará el video de YouTube acá -->
+        </div>
+      </div>
+    </div>
 
     <main class="contenido-principal">
 
@@ -85,4 +173,7 @@
   </div>
 
 </body>
+<script src="../JavaScript/TMDB.js"></script>
+</body>
+
 </html>

@@ -1,0 +1,141 @@
+.config-page {
+	width: min(100% - 40px, 820px);
+	margin: 0 auto;
+	padding: 38px 0 56px;
+}
+
+.config-intro {
+	margin: -14px 0 28px;
+	color: var(--khaki-beige);
+}
+
+.config-group {
+	padding: 24px 0;
+	border-bottom: 1px solid rgba(184, 168, 138, 0.2);
+}
+
+.config-group h2 {
+	margin-bottom: 5px;
+	font-size: 18px;
+}
+
+.config-description {
+	margin-bottom: 18px;
+	color: var(--khaki-beige);
+	font-size: 14px;
+}
+
+.config-fields {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+}
+
+.config-field {
+	display: grid;
+	gap: 7px;
+}
+
+.config-field label {
+	color: var(--ghost-white);
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.config-field input,
+.config-field select {
+	width: 100%;
+	min-height: 42px;
+	padding: 9px 12px;
+	border: 1px solid rgba(247, 247, 252, 0.2);
+	border-radius: 5px;
+	background: var(--dusty-grape);
+	color: var(--ghost-white);
+	font: inherit;
+}
+
+.config-field input:focus,
+.config-field select:focus {
+	outline: 2px solid var(--electric-sapphire);
+	outline-offset: 2px;
+}
+
+.config-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	padding: 14px 0;
+	border-top: 1px solid rgba(184, 168, 138, 0.12);
+	cursor: pointer;
+}
+
+.config-toggle span {
+	display: grid;
+	gap: 4px;
+}
+
+.config-toggle strong {
+	color: var(--ghost-white);
+	font-size: 14px;
+}
+
+.config-toggle small {
+	color: var(--khaki-beige);
+	font-size: 13px;
+}
+
+.config-toggle input {
+	width: 18px;
+	height: 18px;
+	flex: 0 0 18px;
+	accent-color: var(--electric-sapphire);
+}
+
+.config-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	padding-top: 24px;
+}
+
+.config-actions button {
+	min-height: 42px;
+	padding: 0 18px;
+	border: 0;
+	border-radius: 5px;
+	background: var(--electric-sapphire);
+	color: var(--ghost-white);
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.config-actions .config-reset {
+	border: 1px solid rgba(247, 247, 252, 0.25);
+	background: transparent;
+}
+
+.config-actions button:focus-visible {
+	outline: 2px solid var(--sunflower-gold);
+	outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+	.config-page {
+		width: min(100% - 32px, 820px);
+		padding-top: 26px;
+	}
+
+	.config-fields {
+		grid-template-columns: 1fr;
+	}
+
+	.config-actions {
+		flex-direction: column-reverse;
+	}
+
+	.config-actions button {
+		width: 100%;
+	}
+}
