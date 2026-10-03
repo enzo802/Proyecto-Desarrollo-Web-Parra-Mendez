@@ -54,7 +54,6 @@
     flex-direction: column;
     border: 1px solid rgba(184, 168, 138, 0.15);
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    cursor: pointer;
 }
 
 .tarjeta-resena:hover {
@@ -65,13 +64,51 @@
 
 .tarjeta-resena-poster {
     width: 100%;
-    height: 180px;
+    height: 290px;
     background-color: rgba(0, 0, 69, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 48px;
     border-bottom: 1px solid rgba(184, 168, 138, 0.15);
+    overflow: hidden;
+    position: relative;
+    cursor: zoom-in;
+}
+
+.tarjeta-resena-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-resena-poster:hover img {
+    transform: scale(1.06);
+}
+
+.poster-zoom-hint {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 30, 0.82);
+    backdrop-filter: blur(4px);
+    color: var(--ghost-white);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(184, 168, 138, 0.35);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.tarjeta-resena-poster:hover .poster-zoom-hint {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .tarjeta-resena-body {
@@ -366,4 +403,64 @@
 
 .plataforma-consenso strong {
     color: var(--khaki-beige);
+}
+
+/* Modal / Lightbox de Póster */
+.modal-poster-overlay {
+    z-index: 1100;
+}
+
+.modal-poster-contenido {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: modalEntrada 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-poster-contenido img {
+    max-width: min(85vw, 480px);
+    max-height: calc(85vh - 60px);
+    border-radius: 12px;
+    border: 2px solid var(--sunflower-gold);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+    object-fit: contain;
+    background-color: #000;
+}
+
+.btn-cerrar-poster {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    background: #e50914;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid white;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    transition: transform 0.15s, background-color 0.15s;
+    z-index: 10;
+}
+
+.btn-cerrar-poster:hover {
+    transform: scale(1.1);
+    background-color: #f6121d;
+}
+
+.lightbox-poster-titulo {
+    color: var(--ghost-white);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    margin: 0;
 }

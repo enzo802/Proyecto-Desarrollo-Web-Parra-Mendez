@@ -26,7 +26,7 @@
       </nav>
 
       <div class="nav-secundaria">
-        <a href="configuracion.html">Configuración</a>
+        <a href="config.html">Configuración</a>
         <a href="login.html">Iniciar sesión</a>
       </div>
     </aside>
@@ -59,7 +59,10 @@
       
       <div class="modal-header">
         <div class="modal-pelicula-info">
-          <div id="modal-poster" class="modal-poster">🎞️</div>
+          <div id="modal-poster" class="modal-poster">
+            <img id="modal-poster-img" src="" alt="Póster" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px; display: none;">
+            <span id="modal-poster-placeholder">🎞️</span>
+          </div>
           <div class="modal-titulo-wrap">
             <h2 id="modal-titulo">Título de la película</h2>
             <p id="modal-metadatos" class="modal-subtitulo-info">Año • Género</p>
@@ -72,11 +75,20 @@
       <p id="modal-sinopsis" class="modal-sinopsis">Sinopsis de la película...</p>
 
       <section class="seccion-comparativa">
-        <h3>COMPARATIVA DE CRÍTICAS Y PLATAFORMAS</h3>
+        <h3>COMPARATIVA DE CRÍTICAS (IMDb, Rotten Tomatoes, Letterboxd)</h3>
         <div id="lista-plataformas" class="lista-plataformas">
         </div>
       </section>
 
+    </div>
+  </div>
+
+  <!-- Modal para ver el Póster en tamaño completo -->
+  <div id="modal-poster-lightbox" class="modal-overlay modal-poster-overlay" role="dialog" aria-modal="true" aria-label="Póster en tamaño completo">
+    <div class="modal-poster-contenido">
+      <button type="button" id="btn-cerrar-poster" class="modal-cerrar btn-cerrar-poster" aria-label="Cerrar póster">&times;</button>
+      <img id="lightbox-poster-img" src="" alt="Póster en alta definición">
+      <h3 id="lightbox-poster-titulo" class="lightbox-poster-titulo"></h3>
     </div>
   </div>
 
