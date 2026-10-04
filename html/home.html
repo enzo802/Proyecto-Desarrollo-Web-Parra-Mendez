@@ -10,6 +10,7 @@
 
 <body>
   <div class="layout">
+    <!-- barra lateral -->
     <aside class="sidebar">
       <div class="marca">
         <a href="home.html">
@@ -17,6 +18,7 @@
         </a>
       </div>
 
+      <!-- menú de arriba, inicio queda marcado -->
       <nav class="nav-principal" aria-label="Navegación principal">
         <ul>
           <li><a href="home.html" class="activo">Inicio</a></li>
@@ -24,6 +26,7 @@
         </ul>
       </nav>
 
+      <!-- links de abajo -->
       <div class="nav-secundaria">
         <a href="config.html">Configuración</a>
         <a href="login.html">Iniciar sesión</a>
@@ -33,7 +36,9 @@
     <main class="contenido-principal">
       <div class="header">
         <h1>INICIO</h1>
+        <!-- buscador (lupa + input) -->
         <div class="buscador-wrapper">
+          <!-- lupa en svg -->
           <svg class="buscador-icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -42,21 +47,24 @@
         </div>
       </div>
 
+      <!-- populares -->
       <section class="seccion-populares">
         <h2>POPULARES</h2>
         <div class="grilla-peliculas">
-          <!-- Las películas se cargan dinámicamente vía TMDB API -->
+          <!-- películas (se cargan desde la api de TMDB) -->
         </div>
       </section>
     </main>
   </div>
 
-  <!-- Modal de Detalle de Película, Dónde Ver Legalmente y Tráiler -->
+  <!-- modal con la info de la película -->
   <div id="modal-pelicula" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
     <div class="modal-contenido">
       
+      <!-- arriba: póster, título y botón de cerrar -->
       <div class="modal-header">
         <div class="modal-pelicula-info">
+          <!-- los textos de acá son placeholders, el JS los pisa -->
           <img id="modal-poster" class="modal-poster-img" src="" alt="Póster">
           <div class="modal-titulo-wrap">
             <h2 id="modal-titulo">Cargando...</h2>
@@ -67,33 +75,37 @@
         <button type="button" id="btn-cerrar-modal" class="modal-cerrar" onclick="cerrarModalPelicula()" aria-label="Cerrar modal">&times;</button>
       </div>
 
+      <!-- sinopsis -->
       <p id="modal-sinopsis" class="modal-sinopsis">Cargando información de la película...</p>
 
-      <!-- Botón para ver tráiler (no se reproduce por defecto) -->
+      <!-- botón del tráiler -->
       <div class="modal-trailer-seccion">
         <button type="button" id="btn-ver-trailer" class="btn-ver-trailer" onclick="alternarTrailer()">
+          <!-- ícono de play -->
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
           <span id="texto-btn-trailer">Ver Tráiler</span>
         </button>
+        <!-- arranca escondido, no se reproduce solo -->
         <div id="contenedor-video-trailer" class="contenedor-video-trailer" style="display: none;">
-          <!-- Iframe de YouTube inyectado al hacer clic en el botón -->
+          <!-- acá se mete el iframa de youtube al hacer click -->
         </div>
       </div>
 
-      <!-- Dónde ver legalmente -->
+      <!-- dónde verla -->
       <section class="seccion-donde-ver">
         <div class="donde-ver-header">
           <h3>DISPONIBLE EN PLATAFORMAS LEGALES</h3>
           <span class="powered-by-justwatch">Vía JustWatch / TMDB</span>
         </div>
         <div id="lista-donde-ver" class="lista-donde-ver">
-          <!-- Cargado dinámicamente -->
+          <!-- lo llena el JS -->
         </div>
       </section>
 
     </div>
   </div>
 
+  <!-- toda la lógica está en TMDB.js -->
   <script src="../JavaScript/TMDB.js"></script>
 </body>
 

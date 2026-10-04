@@ -4,11 +4,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Configuración | PopScore</title>
+	
 	<link rel="stylesheet" href="../styles/home.css">
 	<link rel="stylesheet" href="../styles/config.css">
 </head>
 <body>
 	<div class="layout">
+		<!-- barra lateral -->
 		<aside class="sidebar">
 			<div class="marca">
 				<a href="home.html">
@@ -16,6 +18,7 @@
 				</a>
 			</div>
 
+			<!-- menú de arriba -->
 			<nav class="nav-principal" aria-label="Navegación principal">
 				<ul>
 					<li><a href="home.html">Inicio</a></li>
@@ -23,6 +26,7 @@
 				</ul>
 			</nav>
 
+			<!-- links de abajo, config queda marcado como activo -->
 			<div class="nav-secundaria">
 				<a href="config.html" class="activo">Configuración</a>
 				<a href="login.html">Iniciar sesión</a>
@@ -37,7 +41,9 @@
 			<div class="config-page">
 				<p class="config-intro">Administrá tu cuenta y personalizá tu experiencia en PopScore.</p>
 
+				<!-- todo el form junto, el submit se maneja con el script de abajo -->
 				<form id="config-form" action="home.html" method="GET">
+					<!-- cuenta -->
 					<section class="config-group" aria-labelledby="cuenta-titulo">
 						<h2 id="cuenta-titulo">Cuenta</h2>
 						<p class="config-description">Actualizá tus datos personales.</p>
@@ -53,9 +59,11 @@
 						</div>
 					</section>
 
+					<!-- privacidad -->
 					<section class="config-group" aria-labelledby="privacidad-titulo">
 						<h2 id="privacidad-titulo">Privacidad</h2>
 						<p class="config-description">Controlá cómo se muestra tu actividad.</p>
+						<!-- el perfil público viene tildado por defecto -->
 						<label class="config-toggle">
 							<span>
 								<strong>Perfil público</strong>
@@ -72,12 +80,14 @@
 						</label>
 					</section>
 
+					<!-- experiencia -->
 					<section class="config-group" aria-labelledby="experiencia-titulo">
 						<h2 id="experiencia-titulo">Experiencia</h2>
 						<p class="config-description">Elegí tus preferencias de uso.</p>
 						<div class="config-fields">
 							<div class="config-field">
 								<label for="idioma">Idioma</label>
+								<!-- por ahora solo español e inglés -->
 								<select id="idioma" name="idioma">
 									<option value="es" selected>Español</option>
 									<option value="en">English</option>
@@ -93,6 +103,7 @@
 						</label>
 					</section>
 
+					<!-- notificaciones -->
 					<section class="config-group" aria-labelledby="notificaciones-titulo">
 						<h2 id="notificaciones-titulo">Notificaciones</h2>
 						<p class="config-description">Seleccioná qué novedades querés recibir.</p>
@@ -112,6 +123,7 @@
 						</label>
 					</section>
 
+					<!-- botones: el reset vuelve todo al estado inicial -->
 					<div class="config-actions">
 						<button type="reset" class="config-reset">Restablecer</button>
 						<button type="submit">Guardar cambios</button>
@@ -122,10 +134,12 @@
 	</div>
 
 	<script>
+		// al guardar no se manda nada, solo vuelve al home
 		document.getElementById('config-form').addEventListener('submit', function(e) {
-			e.preventDefault();
+			e.preventDefault(); // frena el envío normal del form
 			window.location.href = 'home.html';
 		});
+
 	</script>
 </body>
 </html>
