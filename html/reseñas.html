@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PopScore - Reseñas</title>
+  
   <link rel="stylesheet" href="../styles/home.css">
   <link rel="stylesheet" href="../styles/reseñas.css">
 </head>
@@ -11,6 +12,7 @@
 
   <div class="layout">
 
+    <!-- barra lateral (igual que en home) -->
     <aside class="sidebar">
       <div class="marca">
         <a href="home.html">
@@ -18,6 +20,7 @@
         </a>
       </div>
 
+      <!-- menú de arriba, reseñas queda marcado -->
       <nav class="nav-principal" aria-label="Navegación principal">
         <ul>
           <li><a href="home.html">Inicio</a></li>
@@ -25,6 +28,7 @@
         </ul>
       </nav>
 
+      <!-- links de abajo -->
       <div class="nav-secundaria">
         <a href="config.html">Configuración</a>
         <a href="login.html">Iniciar sesión</a>
@@ -35,7 +39,9 @@
 
       <div class="header">
         <h1>RESEÑAS</h1>
+        <!-- buscador -->
         <div class="buscador-wrapper">
+          <!-- lupa -->
           <svg class="buscador-icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -44,8 +50,10 @@
         </div>
       </div>
 
+      <!-- grilla de películas -->
       <section class="seccion-populares">
         <h2>EXPLORAR PELÍCULAS</h2>
+        <!-- las tarjetas las mete resenas.js -->
         <div id="grilla-resenas" class="grilla-resenas">
     
         </div>
@@ -54,15 +62,19 @@
     </main>
   </div>
 
+  <!-- modal de la película con las críticas -->
   <div id="modal-resenas" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
     <div class="modal-contenido">
       
+      <!-- arriba: póster, título y botón de cerrar -->
       <div class="modal-header">
         <div class="modal-pelicula-info">
+          <!-- póster, si no hay imagen se queda el emoji de placeholder -->
           <div id="modal-poster" class="modal-poster">
             <img id="modal-poster-img" src="" alt="Póster" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px; display: none;">
             <span id="modal-poster-placeholder">🎞️</span>
           </div>
+          <!-- textos de prueba, después los cambia el JS -->
           <div class="modal-titulo-wrap">
             <h2 id="modal-titulo">Título de la película</h2>
             <p id="modal-metadatos" class="modal-subtitulo-info">Año • Género</p>
@@ -72,10 +84,13 @@
         <button type="button" id="btn-cerrar-modal" class="modal-cerrar" aria-label="Cerrar modal">&times;</button>
       </div>
 
+      <!-- sinopsis -->
       <p id="modal-sinopsis" class="modal-sinopsis">Sinopsis de la película...</p>
 
+      <!-- comparativa entre las plataformas de críticas -->
       <section class="seccion-comparativa">
         <h3>COMPARATIVA DE CRÍTICAS (IMDb, Rotten Tomatoes, Letterboxd)</h3>
+        <!-- lo llena el JS -->
         <div id="lista-plataformas" class="lista-plataformas">
         </div>
       </section>
@@ -83,15 +98,17 @@
     </div>
   </div>
 
-  <!-- Modal para ver el Póster en tamaño completo -->
+  <!-- póster en grande (se abre al hacer click en el póster del modal) -->
   <div id="modal-poster-lightbox" class="modal-overlay modal-poster-overlay" role="dialog" aria-modal="true" aria-label="Póster en tamaño completo">
     <div class="modal-poster-contenido">
       <button type="button" id="btn-cerrar-poster" class="modal-cerrar btn-cerrar-poster" aria-label="Cerrar póster">&times;</button>
       <img id="lightbox-poster-img" src="" alt="Póster en alta definición">
+      <!-- título abajo del póster -->
       <h3 id="lightbox-poster-titulo" class="lightbox-poster-titulo"></h3>
     </div>
   </div>
 
+  <!-- lógica de esta página -->
   <script src="../JavaScript/resenas.js"></script>
 </body>
 </html>

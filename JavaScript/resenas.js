@@ -4,7 +4,7 @@ const OMDB_API_KEY = 'trilogy';
 const grillaResenas = document.getElementById("grilla-resenas");
 const inputBusqueda = document.getElementById("input-busqueda");
 
-// Elementos del Modal de Reseñas / Comparativa
+// modal de la comparativa
 const modalOverlay = document.getElementById("modal-resenas");
 const btnCerrarModal = document.getElementById("btn-cerrar-modal");
 const modalTitulo = document.getElementById("modal-titulo");
@@ -15,17 +15,19 @@ const modalMetadatos = document.getElementById("modal-metadatos");
 const modalSinopsis = document.getElementById("modal-sinopsis");
 const listaPlataformasContenedor = document.getElementById("lista-plataformas");
 
-// Elementos del Modal de Póster en tamaño completo
+// modal del póster en grande
 const modalPosterLightbox = document.getElementById("modal-poster-lightbox");
 const btnCerrarPoster = document.getElementById("btn-cerrar-poster");
 const lightboxPosterImg = document.getElementById("lightbox-poster-img");
 const lightboxPosterTitulo = document.getElementById("lightbox-poster-titulo");
 
+// acá se guardan las películas que se están mostrando
 let peliculasCargadas = [];
 
-// 1. Cargar películas populares de TMDB al iniciar
+// populares de TMDB (se llama al iniciar y cuando se borra la búsqueda)
 async function cargarPeliculasPopulares() {
   if (!grillaResenas) return;
+  // mensaje mientras carga
   grillaResenas.innerHTML = `
     <div class="sin-resultados" style="grid-column: 1 / -1;">
       <p>Cargando catálogo de películas y reseñas...</p>
@@ -49,14 +51,16 @@ async function cargarPeliculasPopulares() {
   }
 }
 
-// 2. Buscar películas en tiempo real usando la API de TMDB
-let timeoutBusqueda = null;
+// buscador, busca mientras se escribe
+let timeoutBusqueda = null; // para esperar a que termine de tipear
 if (inputBusqueda) {
   inputBusqueda.addEventListener("input", (e) => {
     clearTimeout(timeoutBusqueda);
     const query = e.target.value.trim();
 
+    // espera 350ms después de la última tecla para no pegarle a la api en cada letra
     timeoutBusqueda = setTimeout(async () => {
+      // si borró todo, vuelve a los populares
       if (query === "") {
         cargarPeliculasPopulares();
         return;
@@ -87,11 +91,12 @@ if (inputBusqueda) {
   });
 }
 
-// 3. Renderizar catálogo de películas en la grilla
+// arma las tarjetas de la grilla
 function renderizarPeliculas(peliculas) {
   if (!grillaResenas) return;
   grillaResenas.innerHTML = "";
 
+  // si no hay nada, avisa
   if (!peliculas || peliculas.length === 0) {
     grillaResenas.innerHTML = `
       <div class="sin-resultados">
@@ -105,12 +110,15 @@ function renderizarPeliculas(peliculas) {
     const tarjeta = document.createElement("article");
     tarjeta.className = "tarjeta-resena";
 
+    // datos que se muestran en la tarjeta
     const anio = pelicula.release_date ? pelicula.release_date.split("-")[0] : "N/A";
     const tmdbScore = pelicula.vote_average ? pelicula.vote_average.toFixed(1) : "0.0";
+    // letterboxd es sobre 5, así que es el puntaje de tmdb dividido 2
     const letterboxdEst = (pelicula.vote_average ? (pelicula.vote_average / 2).toFixed(1) : "0.0") + " / 5";
     const posterUrl = pelicula.poster_path 
       ? `https://image.tmdb.org/t/p/w500${pelicula.poster_path}` 
       : null;
+    // versión grande para el lightbox
     const posterOriginalUrl = pelicula.poster_path
       ? `https://image.tmdb.org/t/p/original${pelicula.poster_path}`
       : null;
@@ -157,13 +165,14 @@ function renderizarPeliculas(peliculas) {
       </div>
     `;
 
-    // 1. Clic en el póster: Abre exclusivamente la imagen en tamaño completo
+    // click en el póster -> solo abre la imagen grande
     const posterContainer = tarjeta.querySelector(".tarjeta-resena-poster");
     if (posterContainer) {
       posterContainer.addEventListener("click", (e) => {
         e.stopPropagation();
         abrirModalPoster(posterOriginalUrl || posterUrl, pelicula.title);
       });
+      // lo mismo con el teclado (enter o espacio)
       posterContainer.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -173,7 +182,7 @@ function renderizarPeliculas(peliculas) {
       });
     }
 
-    // 2. Clic en el botón "Comparar reseñas": Abre el modal de comparativa
+    // click en "Comparar reseñas" -> abre el modal con la comparativa
     const btnComparar = tarjeta.querySelector(".tarjeta-resena-btn");
     if (btnComparar) {
       btnComparar.addEventListener("click", (e) => {
@@ -186,16 +195,17 @@ function renderizarPeliculas(peliculas) {
   });
 }
 
-// 4. Modal para ver el Póster en tamaño completo
+// lightbox del póster
 function abrirModalPoster(imgUrl, titulo) {
   if (!modalPosterLightbox || !lightboxPosterImg) return;
 
+  // si no hay imagen no abre nada
   if (imgUrl) {
     lightboxPosterImg.src = imgUrl;
     lightboxPosterImg.alt = `Póster oficial de ${titulo}`;
     if (lightboxPosterTitulo) lightboxPosterTitulo.textContent = titulo;
     modalPosterLightbox.classList.add("activo");
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden"; // frena el scroll del fondo
   }
 }
 
@@ -203,7 +213,7 @@ function cerrarModalPoster() {
   if (modalPosterLightbox) {
     modalPosterLightbox.classList.remove("activo");
     document.body.style.overflow = "";
-    if (lightboxPosterImg) lightboxPosterImg.src = "";
+    if (lightboxPosterImg) lightboxPosterImg.src = ""; // limpia la imagen
   }
 }
 
@@ -211,6 +221,7 @@ if (btnCerrarPoster) {
   btnCerrarPoster.addEventListener("click", cerrarModalPoster);
 }
 
+// click afuera de la imagen también cierra
 if (modalPosterLightbox) {
   modalPosterLightbox.addEventListener("click", (e) => {
     if (e.target === modalPosterLightbox) {
@@ -219,16 +230,17 @@ if (modalPosterLightbox) {
   });
 }
 
-// 5. Modal de Comparativa de Reseñas (TMDB + OMDb)
+// modal de la comparativa (datos de TMDB y OMDb)
 async function abrirModalPelicula(movieId) {
   if (!modalOverlay) return;
 
-  // Estado de carga en el modal
+  // textos de "cargando" hasta que lleguen los datos
   modalTitulo.textContent = "Cargando película...";
   modalPuntuacion.innerHTML = `★ ... <span style="font-size: 0.8rem; color: var(--khaki-beige); font-weight: normal;">(Calculando PopScore)</span>`;
   modalMetadatos.textContent = "Consultando base de datos...";
   modalSinopsis.textContent = "Obteniendo datos de la película y comparativa de calificaciones en vivo...";
   
+  // vuelve al emoji hasta que cargue el póster
   if (modalPosterImg && modalPosterPlaceholder) {
     modalPosterImg.style.display = "none";
     modalPosterPlaceholder.style.display = "block";
@@ -242,29 +254,31 @@ async function abrirModalPelicula(movieId) {
     `;
   }
 
+  // abre el modal ya, los datos se completan después
   modalOverlay.classList.add("activo");
   document.body.style.overflow = "hidden";
 
   try {
-    // 5.1 Obtener detalles y external_ids de TMDB
+    // primero los detalles de TMDB (pido también el id de imdb)
     const urlTMDB = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_API_KEY}&language=es-ES&append_to_response=external_ids`;
     const respTMDB = await fetch(urlTMDB);
     const dataTMDB = await respTMDB.json();
 
-    // Actualizar datos del modal
+    // título, año, géneros y sinopsis
     modalTitulo.textContent = dataTMDB.title || dataTMDB.original_title;
     const anio = dataTMDB.release_date ? dataTMDB.release_date.split("-")[0] : "N/A";
     const generos = dataTMDB.genres && dataTMDB.genres.length > 0 ? dataTMDB.genres.map(g => g.name).join(" • ") : "Cine";
     modalMetadatos.textContent = `${anio} • ${generos}`;
     modalSinopsis.textContent = dataTMDB.overview || "Sinopsis no disponible en español para este título.";
 
+    // póster (si tiene)
     if (dataTMDB.poster_path && modalPosterImg) {
       modalPosterImg.src = `https://image.tmdb.org/t/p/w300${dataTMDB.poster_path}`;
       modalPosterImg.style.display = "block";
       if (modalPosterPlaceholder) modalPosterPlaceholder.style.display = "none";
     }
 
-    // 5.2 Consultar OMDb API (IMDb ID si existe, o título + año)
+    // ahora OMDb: busca por id de imdb y si no hay, por título y año
     const imdbId = dataTMDB.imdb_id || dataTMDB.external_ids?.imdb_id;
     let omdbData = null;
 
@@ -282,13 +296,14 @@ async function abrirModalPelicula(movieId) {
         omdbData = resJSON;
       }
     } catch (errOMDb) {
+      // si falla OMDb no pasa nada, se usan los datos de TMDB
       console.warn("No se pudo consultar OMDb:", errOMDb);
     }
 
-    // 5.3 Construir comparativa de plataformas
+    // arma la lista de plataformas
     const plataformasComparativa = procesarPuntuaciones(dataTMDB, omdbData);
 
-    // Calcular promedio general PopScore
+    // promedio de las 3 plataformas, sobre 10
     let sumaPorcentajes = 0;
     plataformasComparativa.forEach(p => { sumaPorcentajes += p.porcentaje; });
     const promedioGeneral = (sumaPorcentajes / (plataformasComparativa.length * 10)).toFixed(1);
@@ -310,15 +325,16 @@ async function abrirModalPelicula(movieId) {
   }
 }
 
-// 6. Normalizar puntuaciones de IMDb, Rotten Tomatoes, Letterboxd
+// junta los puntajes de las 3 plataformas (todos pasados a porcentaje)
 function procesarPuntuaciones(tmdb, omdb) {
   const plataformas = [];
 
-  // --- 1. Letterboxd ---
+  // letterboxd (no tiene api, se calcula con el puntaje de tmdb)
   const tmdbScore = tmdb.vote_average || 7.5;
   const letterboxdScore = (tmdbScore / 2).toFixed(1);
   const letterboxdPorcentaje = Math.min(100, Math.max(10, Math.round(tmdbScore * 10)));
   
+  // texto según qué tan alto es el puntaje
   let consensoLetterboxd = "Gran acogida en la comunidad cinéfila con calificaciones y registros destacados.";
   if (letterboxdPorcentaje >= 85) {
     consensoLetterboxd = "Aclamación generalizada por la comunidad cinéfila global, destacando dirección y cinematografía.";
@@ -336,7 +352,7 @@ function procesarPuntuaciones(tmdb, omdb) {
     consenso: consensoLetterboxd
   });
 
-  // --- 2. IMDb ---
+  // imdb (viene de omdb, si no hay usa tmdb)
   let imdbRating = "N/A";
   let imdbPorcentaje = letterboxdPorcentaje;
   let imdbVotos = "";
@@ -362,7 +378,7 @@ function procesarPuntuaciones(tmdb, omdb) {
     consenso: consensoIMDb
   });
 
-  // --- 3. Rotten Tomatoes ---
+  // rotten tomatoes (omdb lo trae en Ratings)
   let rtRating = null;
   let rtPorcentaje = null;
 
@@ -370,10 +386,11 @@ function procesarPuntuaciones(tmdb, omdb) {
     const rtObj = omdb.Ratings.find(r => r.Source === "Rotten Tomatoes");
     if (rtObj && rtObj.Value) {
       rtRating = rtObj.Value;
-      rtPorcentaje = parseInt(rtObj.Value.replace("%", ""), 10);
+      rtPorcentaje = parseInt(rtObj.Value.replace("%", ""), 10); // saca el %
     }
   }
 
+  // si omdb no lo trajo, se estima con el puntaje de tmdb
   if (!rtRating) {
     rtPorcentaje = Math.min(99, Math.max(25, Math.round(tmdbScore * 10.2)));
     rtRating = `${rtPorcentaje}%`;
@@ -397,10 +414,10 @@ function procesarPuntuaciones(tmdb, omdb) {
   return plataformas;
 }
 
-// 7. Inyectar tarjetas de comparativa en el modal
+// mete las tarjetas de cada plataforma en el modal
 function renderizarComparativaPlataformas(plataformas) {
   if (!listaPlataformasContenedor) return;
-  listaPlataformasContenedor.innerHTML = "";
+  listaPlataformasContenedor.innerHTML = ""; // limpia el "cargando"
 
   plataformas.forEach(plat => {
     const item = document.createElement("div");
@@ -426,7 +443,7 @@ function renderizarComparativaPlataformas(plataformas) {
   });
 }
 
-// 8. Control de cierre de modal de comparativa
+// cerrar el modal de la comparativa
 function cerrarModal() {
   if (modalOverlay) {
     modalOverlay.classList.remove("activo");
@@ -438,6 +455,7 @@ if (btnCerrarModal) {
   btnCerrarModal.addEventListener("click", cerrarModal);
 }
 
+// click afuera del modal también lo cierra
 if (modalOverlay) {
   modalOverlay.addEventListener("click", (e) => {
     if (e.target === modalOverlay) {
@@ -446,7 +464,7 @@ if (modalOverlay) {
   });
 }
 
-// Tecla Escape para cerrar modales
+// con escape se cierra el de arriba primero (el póster) y después el otro
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     if (modalPosterLightbox && modalPosterLightbox.classList.contains("activo")) {
@@ -457,7 +475,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// 9. Inicialización
+// arranque
 document.addEventListener("DOMContentLoaded", () => {
   cargarPeliculasPopulares();
 });
