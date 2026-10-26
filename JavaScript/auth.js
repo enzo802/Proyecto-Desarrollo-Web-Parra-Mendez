@@ -43,8 +43,6 @@ const Auth = (() => {
         const salt = randomSalt();
         users[key] = { name: name.trim(), email: key, salt, passHash: await hash(salt + password) };
         saveUsers(users);
-        startSession(users[key], false);
-        window.location.href = HOME;
     }
 
     async function login({ email, password, remember }) {
