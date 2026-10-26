@@ -14,7 +14,9 @@
   --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -110,9 +112,13 @@ body::before {
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
-.field input::placeholder { color: #9a9dc4; }
+.field input::placeholder {
+  color: #9a9dc4;
+}
 
-.field input:hover { border-color: rgba(247, 247, 252, 0.22); }
+.field input:hover {
+  border-color: rgba(247, 247, 252, 0.22);
+}
 
 .field input:focus {
   border-color: var(--electric-sapphire);
@@ -127,9 +133,13 @@ body::before {
 
 /* Campo de contrasena con boton de mostrar/ocultar */
 
-.password-wrap { position: relative; }
+.password-wrap {
+  position: relative;
+}
 
-.password-wrap input { padding-right: 52px; }
+.password-wrap input {
+  padding-right: 52px;
+}
 
 .toggle-pass {
   position: absolute;
@@ -154,9 +164,17 @@ body::before {
   background: rgba(247, 247, 252, 0.08);
 }
 
-.toggle-pass .icon-hide { display: none; }
-.toggle-pass[aria-pressed="true"] .icon-show { display: none; }
-.toggle-pass[aria-pressed="true"] .icon-hide { display: block; }
+.toggle-pass .icon-hide {
+  display: none;
+}
+
+.toggle-pass[aria-pressed="true"] .icon-show {
+  display: none;
+}
+
+.toggle-pass[aria-pressed="true"] .icon-hide {
+  display: block;
+}
 
 /* Recordarme / olvidaste */
 
@@ -191,7 +209,9 @@ body::before {
   text-decoration: none;
 }
 
-.link:hover { text-decoration: underline; }
+.link:hover {
+  text-decoration: underline;
+}
 
 /* Boton principal */
 
@@ -237,6 +257,151 @@ body::before {
   outline-offset: 3px;
 }
 
+
+/* ---------- Ventana de error ---------- */
+
+.modal-auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 35, 0.8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-auth-overlay.activo {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 36px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  background: linear-gradient(145deg, #10123b, #090a26);
+  border: 1px solid rgba(244, 185, 66, 0.4);
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 82, 82, 0.15);
+}
+
+.modal-auth-overlay.activo .modal-auth-card {
+  animation: modalShakeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-auth-icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: rgba(255, 82, 82, 0.14);
+  border: 2px solid rgba(255, 82, 82, 0.7);
+  color: #ff6b6b;
+}
+
+.modal-auth-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--ghost-white);
+}
+
+.modal-auth-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--khaki-beige);
+}
+
+.modal-auth-btn {
+  margin-top: 10px;
+  height: 48px;
+}
+
+.modal-auth-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(184, 168, 138, 0.25);
+  border-radius: 50%;
+  color: var(--ghost-white);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-auth-close:hover {
+  background: rgba(255, 82, 82, 0.8);
+  transform: rotate(90deg);
+}
+
+.modal-auth-close:focus-visible {
+  outline: 2px solid var(--sunflower-gold);
+  outline-offset: 3px;
+}
+
+@keyframes modalShakeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.88) translateY(-14px);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1.02) translateY(0);
+  }
+
+  55% {
+    transform: translateX(-9px);
+  }
+
+  70% {
+    transform: translateX(9px);
+  }
+
+  85% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .modal-auth-overlay,
+  .modal-auth-close {
+    transition: none;
+  }
+
+  .modal-auth-overlay.activo .modal-auth-card {
+    animation: none;
+  }
+}
+
 /* ---------- Mascota (derecha) ---------- */
 
 .stage {
@@ -248,11 +413,9 @@ body::before {
   width: 100%;
   padding: 16px 0;
   /* Halo oscuro detras de la mascota para separarla del fondo de posters */
-  background: radial-gradient(
-    ellipse closest-side at 50% 50%,
-    rgba(0, 0, 69, 0.75),
-    rgba(0, 0, 69, 0)
-  );
+  background: radial-gradient(ellipse closest-side at 50% 50%,
+      rgba(0, 0, 69, 0.75),
+      rgba(0, 0, 69, 0));
 }
 
 .mascot {
@@ -280,12 +443,24 @@ body::before {
   pointer-events: none;
   transition: transform 0.15s ease-in-out;
 }
+
 .mascot.eyes-closed .eye {
   transform: translate(-50%, -50%) scaleY(0);
 }
 
-.eye-left  { left: 28.87%; top: 56.58%; width: 10.94%; height: 15.80%; }
-.eye-right { left: 51.30%; top: 56.99%; width: 11.91%; height: 15.95%; }
+.eye-left {
+  left: 28.87%;
+  top: 56.58%;
+  width: 10.94%;
+  height: 15.80%;
+}
+
+.eye-right {
+  left: 51.30%;
+  top: 56.99%;
+  width: 11.91%;
+  height: 15.95%;
+}
 
 .pupil {
   position: absolute;
@@ -327,18 +502,26 @@ body::before {
 /* ---------- Pantallas chicas: mascota arriba, tarjeta abajo ---------- */
 
 @media (max-width: 900px) {
-  body { align-items: flex-start; }
+  body {
+    align-items: flex-start;
+  }
 
   .wrap {
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
   }
 
-  .stage { order: -1; }
+  .stage {
+    order: -1;
+  }
 
-  .mascot { width: clamp(150px, 42vw, 240px); }
+  .mascot {
+    width: clamp(150px, 42vw, 240px);
+  }
 
-  .wordmark { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .wordmark {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+  }
 
   .login-card {
     justify-self: center;
@@ -347,6 +530,7 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .pupil,
   .btn-primary,
   .field input,

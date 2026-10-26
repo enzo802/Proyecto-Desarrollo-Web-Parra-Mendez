@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Configuración | PopScore</title>
-	
+
 	<link rel="stylesheet" href="../styles/home.css">
 	<link rel="stylesheet" href="../styles/config.css">
 </head>
+
 <body>
 	<div class="layout">
 		<!-- barra lateral -->
@@ -50,11 +52,13 @@
 						<div class="config-fields">
 							<div class="config-field">
 								<label for="usuario">Nombre de usuario</label>
-								<input type="text" id="usuario" name="usuario" placeholder="Tu nombre de usuario" autocomplete="nickname">
+								<input type="text" id="usuario" name="usuario" placeholder="Tu nombre de usuario"
+									autocomplete="nickname">
 							</div>
 							<div class="config-field">
 								<label for="correo">Correo electrónico</label>
-								<input type="email" id="correo" name="correo" placeholder="tu@email.com" autocomplete="email">
+								<input type="email" id="correo" name="correo" placeholder="tu@email.com"
+									autocomplete="email">
 							</div>
 						</div>
 					</section>
@@ -133,13 +137,28 @@
 		</main>
 	</div>
 
+	<script src="../JavaScript/auth.js"></script>
 	<script>
+		// Cargar datos del usuario si ha iniciado sesión
+		document.addEventListener('DOMContentLoaded', function () {
+			if (typeof Auth !== 'undefined' && Auth.currentUser) {
+				const user = Auth.currentUser();
+				if (user) {
+					const usuarioInput = document.getElementById('usuario');
+					const correoInput = document.getElementById('correo');
+					if (usuarioInput && user.name) usuarioInput.value = user.name;
+					if (correoInput && user.email) correoInput.value = user.email;
+				}
+			}
+		});
+
 		// al guardar no se manda nada, solo vuelve al home
-		document.getElementById('config-form').addEventListener('submit', function(e) {
+		document.getElementById('config-form').addEventListener('submit', function (e) {
 			e.preventDefault(); // frena el envío normal del form
 			window.location.href = 'home.html';
 		});
 
 	</script>
 </body>
+
 </html>

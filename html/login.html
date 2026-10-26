@@ -10,7 +10,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lilita+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lilita+One&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="../styles/login.css">
 </head>
@@ -33,12 +34,11 @@
       <h2>Iniciar sesión</h2>
       <p class="subtitle">Ingresá tus datos para continuar</p>
 
-      <form>
+      <form id="login-form">
         <!-- mail -->
         <div class="field">
           <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" placeholder="Mail@gmail.com"
-                 autocomplete="email" required>
+          <input type="email" id="email" name="email" placeholder="Mail@gmail.com" autocomplete="email" required>
         </div>
 
         <!-- contraseña + botón del ojito para mostrarla/ocultarla -->
@@ -46,21 +46,21 @@
           <label for="password">Contraseña</label>
           <div class="password-wrap">
             <input type="password" id="password" name="password" placeholder="Contraseña"
-                   autocomplete="current-password" required>
+              autocomplete="current-password" required>
             <button type="button" class="toggle-pass" aria-label="Mostrar contraseña" aria-pressed="false">
               <!-- ojo abierto -->
-              <svg class="icon-show" viewBox="0 0 24 24" width="20" height="20" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
-                <circle cx="12" cy="12" r="3"/>
+              <svg class="icon-show" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+                <circle cx="12" cy="12" r="3" />
               </svg>
               <!-- ojo tachado (el css/js alterna entre los dos) -->
-              <svg class="icon-hide" viewBox="0 0 24 24" width="20" height="20" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M17.9 17.9A10.9 10.9 0 0 1 12 19c-6.4 0-10-7-10-7a18.5 18.5 0 0 1 5-5.7"/>
-                <path d="M9.9 5.2A10 10 0 0 1 12 5c6.4 0 10 7 10 7a18.5 18.5 0 0 1-2.2 3.2"/>
-                <path d="M14.1 14.1a3 3 0 1 1-4.2-4.2"/>
-                <path d="M2 2l20 20"/>
+              <svg class="icon-hide" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17.9 17.9A10.9 10.9 0 0 1 12 19c-6.4 0-10-7-10-7a18.5 18.5 0 0 1 5-5.7" />
+                <path d="M9.9 5.2A10 10 0 0 1 12 5c6.4 0 10 7 10 7a18.5 18.5 0 0 1-2.2 3.2" />
+                <path d="M14.1 14.1a3 3 0 1 1-4.2-4.2" />
+                <path d="M2 2l20 20" />
               </svg>
             </button>
           </div>
@@ -69,18 +69,19 @@
         <!-- recordarme y olvidé contraseña -->
         <div class="row-between">
           <label class="remember">
-            <input type="checkbox">
+            <input type="checkbox" id="remember" name="remember">
             Recordarme
           </label>
           <!-- TODO: link real -->
           <a href="#" class="link">¿Olvidaste tu contraseña?</a>
         </div>
 
+        <p class="form-error" id="form-error" role="alert"></p>
         <button type="submit" class="btn-primary">Iniciar sesión</button>
       </form>
 
-      <!-- registro (todavía no existe la página) -->
-      <p class="signup">¿No tenés cuenta? <a href="#" class="link">Registrate</a></p>
+      <!-- registro -->
+      <p class="signup">¿No tenés cuenta? <a href="register.html" class="link">Registrate</a></p>
     </div>
 
     <!-- mascota a la derecha -->
@@ -102,7 +103,28 @@
 
   </main>
 
-  <!-- logo.js: mueve las pupilas y el ojito de la contraseña -->
+  <!-- Ventana con animación cuando fallan las credenciales -->
+  <div id="modal-error" class="modal-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-error-title"
+    aria-hidden="true">
+    <div class="modal-auth-card">
+      <button type="button" class="modal-auth-close" id="btn-cerrar-error" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-auth-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 id="modal-error-title">Credenciales incorrectas</h3>
+      <p id="modal-error-desc">El correo electrónico o la contraseña ingresados no son correctos. Por favor, verificalos
+        e intentalo de nuevo.</p>
+      <button type="button" class="btn-primary modal-auth-btn" id="btn-reintentar-error">Reintentar</button>
+    </div>
+  </div>
+
+  <script src="../JavaScript/auth.js"></script>
+  <script src="../JavaScript/login.js"></script>
   <script src="../JavaScript/logo.js"></script>
 </body>
 

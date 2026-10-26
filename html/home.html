@@ -39,11 +39,13 @@
         <!-- buscador (lupa + input) -->
         <div class="buscador-wrapper">
           <!-- lupa en svg -->
-          <svg class="buscador-icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="buscador-icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="search" id="input-buscar" class="buscador-input" placeholder="Buscar película por título..." autocomplete="off">
+          <input type="search" id="input-buscar" class="buscador-input" placeholder="Buscar película por título..."
+            autocomplete="off">
         </div>
       </div>
 
@@ -60,7 +62,7 @@
   <!-- modal con la info de la película -->
   <div id="modal-pelicula" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
     <div class="modal-contenido">
-      
+
       <!-- arriba: póster, título y botón de cerrar -->
       <div class="modal-header">
         <div class="modal-pelicula-info">
@@ -72,7 +74,8 @@
             <p id="modal-puntuacion" class="puntuacion">★ 0.0</p>
           </div>
         </div>
-        <button type="button" id="btn-cerrar-modal" class="modal-cerrar" onclick="cerrarModalPelicula()" aria-label="Cerrar modal">&times;</button>
+        <button type="button" id="btn-cerrar-modal" class="modal-cerrar" onclick="cerrarModalPelicula()"
+          aria-label="Cerrar modal">&times;</button>
       </div>
 
       <!-- sinopsis -->
@@ -82,7 +85,9 @@
       <div class="modal-trailer-seccion">
         <button type="button" id="btn-ver-trailer" class="btn-ver-trailer" onclick="alternarTrailer()">
           <!-- ícono de play -->
-          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path d="M8 5v14l11-7z" />
+          </svg>
           <span id="texto-btn-trailer">Ver Tráiler</span>
         </button>
         <!-- arranca escondido, no se reproduce solo -->
@@ -105,6 +110,8 @@
     </div>
   </div>
 
+  <!-- autenticación y barra lateral -->
+  <script src="../JavaScript/auth.js"></script>
   <!-- toda la lógica está en TMDB.js -->
   <script src="../JavaScript/TMDB.js"></script>
 </body>
