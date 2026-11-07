@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
+import RutaProtegida from './components/RutaProtegida.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Inicio from './pages/Inicio.jsx'
@@ -18,9 +19,9 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Inicio />} />
         <Route path="/resenas" element={<Resenas />} />
-        <Route path="/foros" element={<Foros />} />
-        <Route path="/trivia" element={<Trivia />} />
-        <Route path="/configuracion" element={<Configuracion />} />
+        <Route path="/foros" element={<RutaProtegida><Foros /></RutaProtegida>} />
+        <Route path="/trivia" element={<RutaProtegida><Trivia /></RutaProtegida>} />
+               <Route path="/configuracion" element={<RutaProtegida><Configuracion /></RutaProtegida>} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

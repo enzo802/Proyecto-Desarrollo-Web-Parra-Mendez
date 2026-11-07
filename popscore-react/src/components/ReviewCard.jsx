@@ -56,22 +56,23 @@ export default function ReviewCard({ movie, onOpenPoster, onCompare }) {
                 <img src="/images/logo-letterboxd.png" alt="Letterboxd" className="chip-plataforma-logo" />
                 Letterboxd
               </span>
-              <strong>{letterboxdEst}</strong>
+              <strong>≈ {letterboxdEst}</strong>
             </span>
             <span className="chip-plataforma">
               <span className="chip-label">
                 <img src="/images/logo-imdb.webp" alt="IMDb" className="chip-plataforma-logo" />
                 IMDb
               </span>
-              <strong>{tmdbScore} / 10</strong>
+              <strong>≈ {tmdbScore} / 10</strong>
             </span>
             <span className="chip-plataforma">
               <span className="chip-label">
                 <img src="/images/logo-rotten-tomatoes.png" alt="Rotten Tomatoes" className="chip-plataforma-logo" />
                 Rotten Tomatoes
               </span>
-              <strong>{Math.round(score * 10)}%</strong>
+              <strong>≈ {Math.round(score * 10)}%</strong>
             </span>
+            <p className="chip-nota">≈ Estimado a partir del puntaje de TMDB</p>
           </div>
         </div>
 

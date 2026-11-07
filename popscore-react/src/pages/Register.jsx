@@ -104,7 +104,7 @@ export default function Register() {
               onEyesChange={setEyesClosed}
             />
 
-            <p className="form-error" role="alert" style={creada ? { color: 'green' } : undefined}>
+            <p className={`form-error${creada ? ' exito' : ''}`} role="alert">
               {creada ? 'Cuenta creada con éxito. Redirigiendo al inicio de sesión...' : ''}
             </p>
             <button type="submit" className="btn-primary" disabled={sending}>

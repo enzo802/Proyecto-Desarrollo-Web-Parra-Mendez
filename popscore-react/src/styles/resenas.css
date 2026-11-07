@@ -464,3 +464,30 @@ body.pagina-resenas .lightbox-poster-titulo {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     margin: 0;
 }
+
+body.pagina-resenas .plataforma-estimado {
+    margin-left: 4px;
+    padding: 2px 8px;
+    border: 1px solid rgba(184, 168, 138, 0.4);
+    border-radius: 10px;
+    color: var(--khaki-beige);
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+body.pagina-resenas .nota-estimado {
+    margin-top: 12px;
+    color: var(--khaki-beige);
+    font-size: 0.78rem;
+    font-style: italic;
+}
+
+body.pagina-resenas .chip-nota {
+    margin-top: 2px;
+    color: var(--khaki-beige);
+    font-size: 0.68rem;
+    font-style: italic;
+    opacity: 0.8;
+}

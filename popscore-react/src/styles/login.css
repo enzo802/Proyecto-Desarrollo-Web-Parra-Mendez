@@ -538,3 +538,18 @@ body.auth-page::before {
     transition: none;
   }
 }
+
+/* ---------- Mensaje de error / éxito de formulario ---------- */
+
+.form-error {
+  min-height: 1.2em;
+  margin: 0 0 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  color: #ff6b6b;
+}
+
+.form-error.exito {
+  color: #3ecf8e;
+}

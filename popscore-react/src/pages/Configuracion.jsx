@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import usePage from '../hooks/usePage.js'
+import { loadPrefs, savePrefs } from '../lib/preferencias.js'
 
 function Toggle({ titulo, descripcion, name, checked, onChange }) {
   return (
@@ -18,27 +18,37 @@ function Toggle({ titulo, descripcion, name, checked, onChange }) {
 export default function Configuracion() {
   usePage({ title: 'Configuración | PopScore' })
 
-  const { user } = useAuth()
-  const navigate = useNavigate()
+  // esta pagina solo se muestra con sesion (ver RutaProtegida en App.jsx)
+  const { user, updateProfile } = useAuth()
 
-  // valores iniciales: los datos del usuario logueado y los toggles por defecto
-  const inicial = {
-    usuario: user?.name ?? '',
-    correo: user?.email ?? '',
-    perfilPublico: true,
-    spoilers: false,
-    idioma: 'es',
-    recomendaciones: true,
-    notifComunidad: true,
-    notifNovedades: false,
+  // lo ultimo guardado: el nombre del usuario y sus preferencias
+  const [guardado, setGuardado] = useState(() => ({ usuario: user.name, ...loadPrefs(user.email) }))
+  const [form, setForm] = useState(guardado)
+  const [aviso, setAviso] = useState(false)
+
+  const set = (name, value) => {
+    setForm((f) => ({ ...f, [name]: value }))
+    setAviso(false)
   }
-  const [form, setForm] = useState(inicial)
-  const set = (name, value) => setForm((f) => ({ ...f, [name]: value }))
 
-  // al guardar no se manda nada, solo vuelve al home
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate('/')
+    const nombre = form.usuario.trim()
+    if (!nombre) return
+
+    const { usuario, ...prefs } = form
+    updateProfile(nombre)
+    savePrefs(user.email, prefs)
+
+    const nuevo = { ...form, usuario: nombre }
+    setGuardado(nuevo)
+    setForm(nuevo)
+    setAviso(true)
+  }
+
+  const restablecer = () => {
+    setForm(guardado)
+    setAviso(false)
   }
 
   return (
@@ -64,6 +74,7 @@ export default function Configuracion() {
                   name="usuario"
                   placeholder="Tu nombre de usuario"
                   autoComplete="nickname"
+                  required
                   value={form.usuario}
                   onChange={(e) => set('usuario', e.target.value)}
                 />
@@ -74,10 +85,9 @@ export default function Configuracion() {
                   type="email"
                   id="correo"
                   name="correo"
-                  placeholder="tu@email.com"
                   autoComplete="email"
-                  value={form.correo}
-                  onChange={(e) => set('correo', e.target.value)}
+                  value={user.email}
+                  readOnly
                 />
               </div>
             </div>
@@ -126,7 +136,8 @@ export default function Configuracion() {
           </section>
 
           <div className="config-actions">
-            <button type="button" className="config-reset" onClick={() => setForm(inicial)}>
+            {aviso && <p className="config-aviso" role="status">Cambios guardados.</p>}
+            <button type="button" className="config-reset" onClick={restablecer}>
               Restablecer
             </button>
             <button type="submit">Guardar cambios</button>

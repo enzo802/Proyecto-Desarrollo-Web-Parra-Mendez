@@ -12,7 +12,10 @@ export default function MovieCard({ movie, onSelect }) {
       title={`Ver detalles de ${movie.title}`}
       onClick={() => onSelect(movie.id)}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') onSelect(movie.id)
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onSelect(movie.id)
+        }
       }}
     >
       <img

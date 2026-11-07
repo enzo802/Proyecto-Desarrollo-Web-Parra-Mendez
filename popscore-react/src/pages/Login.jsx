@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import usePage from '../hooks/usePage.js'
 import useAuthModal from '../hooks/useAuthModal.js'
@@ -12,12 +12,14 @@ export default function Login() {
 
   const { user, login } = useAuth()
   const modal = useAuthModal()
+  const location = useLocation()
+  const destino = location.state?.from?.pathname || '/'
   const [form, setForm] = useState({ email: '', password: '', remember: false })
   const [eyesClosed, setEyesClosed] = useState(false)
   const [sending, setSending] = useState(false)
 
   // si ya hay sesion no tiene sentido ver el login (tambien cubre el login recien hecho)
-  if (user) return <Navigate to="/" replace />
+  if (user) return <Navigate to={destino} replace />
 
   const set = (name, value) => setForm((f) => ({ ...f, [name]: value }))
 
@@ -41,7 +43,7 @@ export default function Login() {
       <main className="wrap">
         {/* tarjeta a la izquierda */}
         <div className="login-card">
-          <h2>Iniciar sesión</h2>
+          <h1>Iniciar sesión</h1>
           <p className="subtitle">Ingresá tus datos para continuar</p>
 
           <form onSubmit={handleSubmit}>
