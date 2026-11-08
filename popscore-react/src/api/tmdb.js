@@ -80,3 +80,11 @@ export async function getOmdb({ imdbId, title, year }, signal) {
     return null
   }
 }
+
+// ---- trivia ----
+// peliculas mejor valoradas (20 por pagina)
+export const getTopRated = (page, signal) => tmdb('/movie/top_rated', { page }, signal)
+
+// detalle + creditos (para saber quien dirigio)
+export const getMovieWithCredits = (id, signal) =>
+  tmdb(`/movie/${id}`, { append_to_response: 'credits' }, signal)

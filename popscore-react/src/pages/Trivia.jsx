@@ -1,25 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import usePage from '../hooks/usePage.js'
-import { PREGUNTAS } from '../data/trivias.js'
+import { TOTAL, mezclar, generarPartidaTMDB, partidaRespaldo } from '../lib/triviaGenerator.js'
 
 const BEST_KEY = 'popscore_trivia_mejor'
-
-const mezclar = (lista) => {
-  const copia = [...lista]
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[copia[i], copia[j]] = [copia[j], copia[i]]
-  }
-  return copia
-}
-
-// arma una partida: preguntas en orden random y opciones mezcladas (la correcta se marca antes de mezclar)
-const nuevaPartida = () =>
-  mezclar(PREGUNTAS).map((p) => ({
-    pregunta: p.pregunta,
-    correcta: p.opciones[0],
-    opciones: mezclar(p.opciones),
-  }))
 
 const leerMejor = () => {
   try {
@@ -29,17 +12,51 @@ const leerMejor = () => {
   }
 }
 
+// intenta armar la partida con TMDB
+async function cargarPartida(signal) {
+  try {
+    const generadas = await generarPartidaTMDB(signal)
+    if (generadas.length >= 6) {
+      // si salieron menos de 10 se completa con las manuales
+      const faltan = TOTAL - generadas.length
+      const preguntas = mezclar([...generadas, ...partidaRespaldo().slice(0, Math.max(0, faltan))])
+      return { preguntas: preguntas.slice(0, TOTAL), origen: 'tmdb' }
+    }
+  } catch (error) {
+    if (error.name === 'AbortError') throw error
+    console.error('No se pudo generar la trivia con TMDB:', error)
+  }
+  return { preguntas: partidaRespaldo().slice(0, TOTAL), origen: 'respaldo' }
+}
+
 export default function Trivia() {
   usePage({ title: 'Trivia | PopScore' })
 
-  const [partida, setPartida] = useState(nuevaPartida)
+  const [partida, setPartida] = useState(null) // null mientras se arman las preguntas
+  const [origen, setOrigen] = useState('tmdb')
+  const [ronda, setRonda] = useState(0) // sube en cada "jugar de nuevo" para volver a generar
   const [indice, setIndice] = useState(0)
   const [elegida, setElegida] = useState(null)
   const [puntos, setPuntos] = useState(0)
   const [mejor, setMejor] = useState(leerMejor)
 
-  const terminada = indice >= partida.length
-  const actual = partida[indice]
+  useEffect(() => {
+    const controller = new AbortController()
+    setPartida(null)
+    cargarPartida(controller.signal)
+      .then((r) => {
+        setPartida(r.preguntas)
+        setOrigen(r.origen)
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') console.error(error)
+      })
+    return () => controller.abort()
+  }, [ronda])
+
+  const cargando = partida === null
+  const terminada = !cargando && indice >= partida.length
+  const actual = cargando ? null : partida[indice]
 
   const responder = (opcion) => {
     if (elegida !== null) return // ya respondio esta pregunta
@@ -62,24 +79,31 @@ export default function Trivia() {
   }
 
   const reiniciar = () => {
-    setPartida(nuevaPartida())
     setIndice(0)
     setElegida(null)
     setPuntos(0)
+    setRonda((r) => r + 1)
   }
 
   return (
     <>
       <div className="header">
         <h1>TRIVIA</h1>
-        <span className="trivia-mejor">Mejor puntaje: {mejor} / {partida.length}</span>
+        <span className="trivia-mejor">Mejor puntaje: {mejor} / {TOTAL}</span>
       </div>
 
       <section className="trivia-caja">
-        {terminada ? (
+        {cargando ? (
+          <p className="trivia-cargando" role="status">Armando tus preguntas...</p>
+        ) : terminada ? (
           <div className="trivia-final">
             <h2>¡Terminaste!</h2>
-            <p className="trivia-puntaje">{puntos} / {partida.length}</p>
+            <div className="trivia-anillo" style={{ '--pct': `${(puntos / partida.length) * 100}%` }}>
+              <div className="trivia-anillo-interior">
+                <span className="trivia-anillo-num">{puntos}</span>
+                <span className="trivia-anillo-total">de {partida.length}</span>
+              </div>
+            </div>
             <p className="trivia-mensaje">
               {puntos === partida.length
                 ? 'Puntaje perfecto. Sabés mucho de cine.'
@@ -91,6 +115,12 @@ export default function Trivia() {
           </div>
         ) : (
           <>
+            {origen === 'respaldo' && (
+              <p className="trivia-aviso">
+                No se pudo conectar con TMDB, así que se usaron preguntas de respaldo.
+              </p>
+            )}
+
             <div className="trivia-progreso" aria-live="polite">
               <span>Pregunta {indice + 1} de {partida.length}</span>
               <span>Puntos: {puntos}</span>
@@ -99,7 +129,11 @@ export default function Trivia() {
               <div className="trivia-barra-llenado" style={{ width: `${(indice / partida.length) * 100}%` }} />
             </div>
 
-            <h2 className="trivia-pregunta">{actual.pregunta}</h2>
+            <div className="trivia-cabecera">
+              {actual.poster && <img className="trivia-poster" src={actual.poster} alt="" />}
+              <h2 className="trivia-pregunta">{actual.pregunta}</h2>
+            </div>
+            {actual.contexto && <blockquote className="trivia-contexto">{actual.contexto}</blockquote>}
 
             <div className="trivia-opciones">
               {actual.opciones.map((opcion) => {

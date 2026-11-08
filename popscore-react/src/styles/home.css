@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap");
 
 :root {
   --deep-twilight: #000045;
@@ -8,8 +8,8 @@
   --khaki-beige: #b8a88a;
   --ghost-white: #f7f7fc;
 
-  --font-heading: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-heading: "Jost", system-ui, -apple-system, sans-serif;
+  --font-body: "Quicksand", system-ui, -apple-system, sans-serif;
 }
 
 :where(body.app-page),

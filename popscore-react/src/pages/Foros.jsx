@@ -139,7 +139,7 @@ export default function Foros() {
       <section className="seccion-populares">
         <h2>TEMAS</h2>
         {threads.length === 0 ? (
-          <p className="sin-resultados">Todavía no hay temas. ¡Creá el primero!</p>
+          <p className="sin-resultados" style={{ color: '#ffffff' }}>Todavía no hay temas. ¡Creá el primero!</p>
         ) : (
           <div className="foro-lista">
             {threads.map((t) => (

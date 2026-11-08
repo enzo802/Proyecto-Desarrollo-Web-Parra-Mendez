@@ -10,8 +10,8 @@
   --pupil: #2A2E4B;
   --eye-cream: #F7E7C5;
 
-  --font-display: 'Lilita One', 'Arial Rounded MT Bold', 'Arial Black', Arial, sans-serif;
-  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-display: 'Jost', sans-serif;
+  --font-body: 'Quicksand', sans-serif;
 }
 
 * {
