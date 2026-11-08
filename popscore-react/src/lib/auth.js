@@ -59,3 +59,21 @@ export function endSession() {
   localStorage.removeItem(SESSION_KEY)
   sessionStorage.removeItem(SESSION_KEY)
 }
+
+// cambia el nombre en la cuenta y en la sesion que este guardada
+export function updateName(email, name) {
+  const users = getUsers()
+  const key = normalizeEmail(email)
+  if (!users[key]) return
+  users[key].name = name.trim()
+  saveUsers(users)
+
+  for (const storage of [localStorage, sessionStorage]) {
+    try {
+      const raw = storage.getItem(SESSION_KEY)
+      if (raw) storage.setItem(SESSION_KEY, JSON.stringify({ ...JSON.parse(raw), name: name.trim() }))
+    } catch {
+      /* sesion ilegible, se ignora */
+    }
+  }
+}

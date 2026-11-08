@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import usePage from '../hooks/usePage.js'
 import { loadThreads, saveThreads, newId, formatDate } from '../lib/foros.js'
@@ -52,12 +51,6 @@ export default function Foros() {
     setRespuesta('')
   }
 
-  const avisoSesion = (
-    <p className="foro-aviso">
-      Necesitás <Link to="/login" className="link">iniciar sesión</Link> para participar.
-    </p>
-  )
-
   // ---------- vista de un tema ----------
   if (seleccionado) {
     return (
@@ -88,22 +81,18 @@ export default function Foros() {
           ))}
         </section>
 
-        {user ? (
-          <form className="foro-form" onSubmit={responder}>
-            <label htmlFor="foro-respuesta">Tu respuesta</label>
-            <textarea
-              id="foro-respuesta"
-              rows={3}
-              maxLength={1000}
-              value={respuesta}
-              onChange={(e) => setRespuesta(e.target.value)}
-              placeholder="Escribí tu respuesta..."
-            />
-            <button type="submit" className="foro-btn" disabled={!respuesta.trim()}>Responder</button>
-          </form>
-        ) : (
-          avisoSesion
-        )}
+        <form className="foro-form" onSubmit={responder}>
+          <label htmlFor="foro-respuesta">Tu respuesta</label>
+          <textarea
+            id="foro-respuesta"
+            rows={3}
+            maxLength={1000}
+            value={respuesta}
+            onChange={(e) => setRespuesta(e.target.value)}
+            placeholder="Escribí tu respuesta..."
+          />
+          <button type="submit" className="foro-btn" disabled={!respuesta.trim()}>Responder</button>
+        </form>
       </>
     )
   }
@@ -113,12 +102,10 @@ export default function Foros() {
     <>
       <div className="header">
         <h1>FOROS</h1>
-        {user && !creando && (
+        {!creando && (
           <button type="button" className="foro-btn" onClick={() => setCreando(true)}>Nuevo tema</button>
         )}
       </div>
-
-      {!user && avisoSesion}
 
       {creando && (
         <form className="foro-form" onSubmit={crearTema}>

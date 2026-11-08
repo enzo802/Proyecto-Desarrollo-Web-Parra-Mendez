@@ -99,6 +99,11 @@ export default function ReviewModal({ movieId, onClose }) {
                     <div className="plataforma-nombre-wrap">
                       <img src={plat.logo} alt={plat.nombre} className="plataforma-logo" loading="lazy" />
                       <span className="plataforma-nombre">{plat.nombre}</span>
+                      {plat.estimado && (
+                        <span className="plataforma-estimado" title="Calculado a partir del puntaje de TMDB">
+                          Estimado
+                        </span>
+                      )}
                     </div>
                     <span className="plataforma-score-badge">{plat.puntuacion}</span>
                   </div>
@@ -118,12 +123,17 @@ export default function ReviewModal({ movieId, onClose }) {
               </div>
             )}
 
-            {status === 'error' && (
+                        {status === 'error' && (
               <div className="sin-resultados">
                 <p>No se pudieron cargar las calificaciones en este momento.</p>
               </div>
             )}
           </div>
+          {status === 'ok' && platforms.some((p) => p.estimado) && (
+            <p className="nota-estimado">
+              "Estimado" significa que no hay un dato oficial y se calcula a partir del puntaje de TMDB.
+            </p>
+          )}
         </section>
       </div>
     </Modal>

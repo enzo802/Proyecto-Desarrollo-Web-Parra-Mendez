@@ -22,12 +22,14 @@ export function buildPlatformRatings(tmdb, omdb) {
     porcentaje: letterboxdPorcentaje,
     logo: '/images/logo-letterboxd.png',
     consenso: consensoLetterboxd,
+    estimado: true,
   })
 
   // imdb (viene de omdb, si no hay usa tmdb)
   let imdbRating
   let imdbPorcentaje = letterboxdPorcentaje
   let imdbVotos = ''
+  let imdbEstimado = true
 
   if (omdb && omdb.imdbRating && omdb.imdbRating !== 'N/A') {
     imdbRating = `${omdb.imdbRating} / 10`
@@ -53,6 +55,7 @@ export function buildPlatformRatings(tmdb, omdb) {
   // rotten tomatoes (omdb lo trae en Ratings)
   let rtRating = null
   let rtPorcentaje = null
+  let rtEstimado = false
 
   const rtObj = omdb?.Ratings?.find((r) => r.Source === 'Rotten Tomatoes')
   if (rtObj && rtObj.Value) {
@@ -64,6 +67,7 @@ export function buildPlatformRatings(tmdb, omdb) {
   if (!rtRating) {
     rtPorcentaje = Math.min(99, Math.max(25, Math.round(tmdbScore * 10.2)))
     rtRating = `${rtPorcentaje}%`
+    rtEstimado = true
   }
 
   let consensoRT = 'Certificado de frescura: Valoración positiva de los críticos registrados en el Tomatometer.'
@@ -79,6 +83,7 @@ export function buildPlatformRatings(tmdb, omdb) {
     porcentaje: rtPorcentaje,
     logo: '/images/logo-rotten-tomatoes.png',
     consenso: consensoRT,
+    estimado: rtEstimado,
   })
 
   return plataformas

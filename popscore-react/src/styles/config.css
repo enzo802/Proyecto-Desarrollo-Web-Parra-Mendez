@@ -139,3 +139,11 @@
 		width: 100%;
 	}
 }
+
+.config-aviso {
+	margin-right: auto;
+	align-self: center;
+	color: #3ecf8e;
+	font-size: 14px;
+	font-weight: 700;
+}
