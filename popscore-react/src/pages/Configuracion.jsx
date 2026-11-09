@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext.jsx'
 import usePage from '../hooks/usePage.js'
+import Avatar from '../components/Avatar.jsx'
 import { loadPrefs, savePrefs } from '../lib/preferencias.js'
+import { getAvatar, saveAvatar, removeAvatar, resizeImage } from '../lib/avatar.js'
 
 function Toggle({ titulo, descripcion, name, checked, onChange }) {
   return (
@@ -25,6 +27,37 @@ export default function Configuracion() {
   const [guardado, setGuardado] = useState(() => ({ usuario: user.name, ...loadPrefs(user.email) }))
   const [form, setForm] = useState(guardado)
   const [aviso, setAviso] = useState(false)
+
+  // la foto se guarda apenas se elige (no espera al boton "Guardar cambios")
+  const [foto, setFoto] = useState(() => getAvatar(user.email))
+  const [errorFoto, setErrorFoto] = useState('')
+
+  const elegirFoto = async (e) => {
+    const archivo = e.target.files[0]
+    e.target.value = '' // permite volver a elegir el mismo archivo
+    if (!archivo) return
+    if (!archivo.type.startsWith('image/')) {
+      setErrorFoto('El archivo tiene que ser una imagen.')
+      return
+    }
+    try {
+      const dataUrl = await resizeImage(archivo)
+      if (!saveAvatar(user.email, dataUrl)) {
+        setErrorFoto('No se pudo guardar la foto en el navegador.')
+        return
+      }
+      setFoto(dataUrl)
+      setErrorFoto('')
+    } catch (err) {
+      setErrorFoto(err.message)
+    }
+  }
+
+  const quitarFoto = () => {
+    removeAvatar(user.email)
+    setFoto(null)
+    setErrorFoto('')
+  }
 
   const set = (name, value) => {
     setForm((f) => ({ ...f, [name]: value }))
@@ -65,6 +98,23 @@ export default function Configuracion() {
           <section className="config-group" aria-labelledby="cuenta-titulo">
             <h2 id="cuenta-titulo">Cuenta</h2>
             <p className="config-description">Actualizá tus datos personales.</p>
+
+            <div className="config-foto">
+              <Avatar email={user.email} name={form.usuario} size={72} />
+              <div className="config-foto-acciones">
+                <label className="config-foto-btn">
+                  Cambiar foto
+                  <input type="file" accept="image/*" className="config-foto-input" onChange={elegirFoto} />
+                </label>
+                {foto && (
+                  <button type="button" className="config-foto-quitar" onClick={quitarFoto}>
+                    Quitar foto
+                  </button>
+                )}
+                {errorFoto && <p className="config-foto-error" role="alert">{errorFoto}</p>}
+              </div>
+            </div>
+
             <div className="config-fields">
               <div className="config-field">
                 <label htmlFor="usuario">Nombre de usuario</label>

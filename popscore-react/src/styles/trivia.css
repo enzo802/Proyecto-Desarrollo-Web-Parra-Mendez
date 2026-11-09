@@ -121,13 +121,6 @@
   text-align: center;
 }
 
-.trivia-puntaje {
-  color: var(--sunflower-gold);
-  font-family: var(--font-heading);
-  font-size: 3rem;
-  font-weight: 700;
-}
-
 .trivia-mensaje {
   margin-bottom: 8px;
   color: var(--khaki-beige);

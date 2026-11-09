@@ -147,3 +147,68 @@
 	font-size: 14px;
 	font-weight: 700;
 }
+
+.config-foto {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	margin-bottom: 20px;
+}
+
+.config-foto-acciones {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.config-foto-btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	min-height: 38px;
+	padding: 0 16px;
+	border-radius: 5px;
+	background: var(--electric-sapphire);
+	color: var(--ghost-white);
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.config-foto-btn:hover {
+	opacity: 0.9;
+}
+
+.config-foto-btn:focus-within {
+	outline: 2px solid var(--sunflower-gold);
+	outline-offset: 3px;
+}
+
+/* el input real queda oculto pero accesible con teclado */
+.config-foto-input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	overflow: hidden;
+}
+
+.config-foto-quitar {
+	min-height: 38px;
+	padding: 0 16px;
+	border: 1px solid rgba(247, 247, 252, 0.25);
+	border-radius: 5px;
+	background: transparent;
+	color: var(--ghost-white);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.config-foto-error {
+	width: 100%;
+	color: #ff6b6b;
+	font-size: 13px;
+}

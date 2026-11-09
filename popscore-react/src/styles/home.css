@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap");
 
 :root {
   --deep-twilight: #000045;
@@ -22,6 +21,7 @@
 body.app-page {
   min-height: 100vh;
   background-color: var(--deep-twilight);
+  color: var(--ghost-white);
   font-family: var(--font-body);
 }
 
@@ -239,7 +239,11 @@ body.app-page {
   }
 
   .nav-secundaria {
-    display: none;
+    margin-top: 0;
+    margin-left: auto;
+    flex-direction: row;
+    border-top: 0;
+    padding-top: 0;
   }
 }
 
@@ -524,4 +528,23 @@ body.app-page {
 .link-justwatch:hover {
   opacity: 0.8;
   text-decoration: underline;
+}
+
+
+/* Foto de perfil (Avatar.jsx) */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid var(--sunflower-gold);
+  border-radius: 50%;
+  background: var(--dusty-grape);
+  object-fit: cover;
+}
+
+.avatar-inicial {
+  color: var(--sunflower-gold);
+  font-family: var(--font-heading);
+  font-weight: 700;
 }

@@ -35,6 +35,7 @@ export function buildPlatformRatings(tmdb, omdb) {
     imdbRating = `${omdb.imdbRating} / 10`
     imdbPorcentaje = Math.round(parseFloat(omdb.imdbRating) * 10)
     imdbVotos = omdb.imdbVotes ? ` (con más de ${omdb.imdbVotes} votos)` : ''
+    imdbEstimado = false
   } else {
     imdbRating = `${tmdbScore.toFixed(1)} / 10`
   }
@@ -50,6 +51,7 @@ export function buildPlatformRatings(tmdb, omdb) {
     porcentaje: imdbPorcentaje,
     logo: '/images/logo-imdb.webp',
     consenso: consensoIMDb,
+    estimado: imdbEstimado,
   })
 
   // rotten tomatoes (omdb lo trae en Ratings)

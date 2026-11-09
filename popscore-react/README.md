@@ -25,7 +25,11 @@ Las API keys estan en `.env` (no se sube a git). Hay un `.env.example` como mode
 
 ## Foros y trivia
 
-- Foros: temas y respuestas guardados en localStorage. Hay que tener sesion iniciada para publicar o responder.
-- Trivia: 10 preguntas en orden aleatorio, con el mejor puntaje guardado en el navegador.
+- Foros: temas y respuestas guardados en localStorage.
+- Trivia: 10 preguntas generadas con TMDB (director, año de estreno y sinopsis). Si TMDB no responde, se usan las
+  preguntas fijas de `src/data/trivias.js`. El mejor puntaje se guarda en el navegador.
+- Configuracion: el nombre de usuario y las preferencias se guardan por usuario en localStorage.
+- Puntajes: Letterboxd no tiene API, asi que su puntaje es una estimacion a partir de TMDB. IMDb y Rotten Tomatoes
+  vienen de OMDb y, si no hay dato, tambien se estiman. En pantalla se marcan como "Estimado".
 - Si no llegan a presentarlas, se sacan borrando `Foros.jsx`, `Trivia.jsx`, sus rutas en `App.jsx`,
   los links en `Sidebar.jsx` y los imports de `foros.css` y `trivia.css` en `main.jsx`.

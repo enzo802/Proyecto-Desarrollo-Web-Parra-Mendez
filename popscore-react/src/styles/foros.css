@@ -1,8 +1,4 @@
 /* Foros: usa las variables de home.css */
-.foro-aviso {
-  margin-bottom: 20px;
-  color: var(--khaki-beige);
-}
 
 .foro-btn {
   min-height: 40px;
@@ -173,4 +169,10 @@
   border: 1px solid rgba(184, 168, 138, 0.15);
   border-radius: 10px;
   background: rgba(75, 78, 120, 0.35);
+}
+
+.foro-autor{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
