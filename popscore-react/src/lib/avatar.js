@@ -12,6 +12,7 @@ export function getAvatar(email) {
 export function saveAvatar(email, dataUrl) {
   try {
     localStorage.setItem(clave(email), dataUrl)
+    window.dispatchEvent(new Event('popscore-avatar'))
     return true
   } catch {
     return false
@@ -21,6 +22,7 @@ export function saveAvatar(email, dataUrl) {
 export function removeAvatar(email) {
   try {
     localStorage.removeItem(clave(email))
+    window.dispatchEvent(new Event('popscore-avatar'))
   } catch {
     /* sin storage no hay nada que borrar */
   }

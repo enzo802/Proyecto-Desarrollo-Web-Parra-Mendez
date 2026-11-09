@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import Avatar from './Avatar.jsx'
 
 const claseActivo = ({ isActive }) => (isActive ? 'activo' : undefined)
 
@@ -31,6 +32,12 @@ export default function Sidebar() {
       </nav>
 
       <div className="nav-secundaria">
+        {user && (
+          <div className="sidebar-usuario">
+            <Avatar email={user.email} name={user.name} size={36} />
+            <span className="sidebar-usuario-nombre">{user.name}</span>
+          </div>
+        )}
         <NavLink to="/configuracion" className={claseActivo}>Configuración</NavLink>
         {user ? (
           <a href="/login" onClick={cerrarSesion}>Cerrar sesión</a>

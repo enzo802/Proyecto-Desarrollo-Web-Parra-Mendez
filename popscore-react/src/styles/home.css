@@ -548,3 +548,31 @@ body.app-page {
   font-family: var(--font-heading);
   font-weight: 700;
 }
+
+/* Usuario en la barra lateral (Sidebar.jsx) */
+.sidebar-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.sidebar-usuario-nombre {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ghost-white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .sidebar-usuario {
+    padding: 0 8px 0 0;
+  }
+
+  .sidebar-usuario-nombre {
+    display: none;
+  }
+}
